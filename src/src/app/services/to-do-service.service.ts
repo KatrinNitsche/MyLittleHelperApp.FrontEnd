@@ -22,7 +22,10 @@ export class ToDoService {
   }
 
   addToDo(toDo:ToDo): Observable<ToDo> {
-    const headers = { 'Access-Control-Allow-Origin': 'https://localhost'}  
+    const headers = {   
+        'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT',       
+        'content-type': 'application/json', 
+        'Access-Control-Allow-Origin': 'https://localhost'}  
     const body = JSON.stringify(toDo);
 
     return this.http.post<ToDo>(this.baseUrl + this.endPoint, body, {'headers': headers});

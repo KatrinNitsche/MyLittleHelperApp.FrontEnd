@@ -1,0 +1,19 @@
+<div class="quizRestults">
+    <span>Score: {{score}} / {{QuizQuestions.length}}</span>
+</div>
+
+<div class="QuizQuestion">
+    <span>{{QuizQuestions[CurrentQuestionIndex].Question}}</span>
+</div>
+
+<input type="button" value="Show Answer" class="showAnswer" (click)="showAnswer()"/>
+
+<div class="QuizAnswer" *ngIf="AnswerShown">
+    <b>Answer: </b>
+    <span>{{QuizQuestions[CurrentQuestionIndex].Answer}}</span>
+</div>
+
+<div *ngIf="AnswerShown">
+    <input type="button" value="My Answer was correct" class="showAnswer" (click)="checkAnswer(true)"/>
+    <input type="button" value="My Answer was wrong" class="showAnswer" (click)="checkAnswer(false)"/>
+</div>

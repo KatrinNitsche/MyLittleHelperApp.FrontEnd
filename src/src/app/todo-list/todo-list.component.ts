@@ -35,12 +35,18 @@ export class TodoListComponent implements OnInit {
   }
 
   removeToDo(id:number) {
-    this.todos = this.todos.filter((v,i) => i !== id);
+    this.todoService.removeToDo(id).subscribe({
+      next: todo => {
+        this.todos = this.todos.filter((v,i) => i !== id);
+      },
+      error: err => this.errorMessage = err
+    });
   }
 
   addToDo() {
 
-    var newToDo = {
+    var newToDo = { 
+      id: 0,     
       content: this.inputToDo,
       completed: false,
       important: this.inputImportant

@@ -1,4 +1,4 @@
-import { Injectable, Inject } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError, tap } from 'rxjs/operators';
@@ -12,7 +12,8 @@ export class ToDoService {
   baseUrl: string = "https://localhost:44349/";
   endPoint: string = "todo";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {   
+   }
 
   getToDos(): Observable<ToDo[]> {   
     return this.http.get<ToDo[]>(this.baseUrl + this.endPoint).pipe(
@@ -22,13 +23,24 @@ export class ToDoService {
   }
 
   addToDo(toDo:ToDo): Observable<ToDo> {
-    const headers = {   
-        'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT',       
-        'content-type': 'application/json', 
-        'Access-Control-Allow-Origin': 'https://localhost'}  
+    const headers = { 'content-type': 'application/json' }  
     const body = JSON.stringify(toDo);
-
+    
     return this.http.post<ToDo>(this.baseUrl + this.endPoint, body, {'headers': headers});
+  }
+
+  removeToDo(id:number):Observable<ToDo> {
+    const headers = { 'content-type': 'application/json' }  
+    const body = JSON.stringify(id);
+    
+    const options = {
+      headers: headers,
+      body : body
+    };
+
+    console.log(options);
+
+    return this.http.delete<ToDo>(this.baseUrl + this.endPoint, options);
   }
 
   handleError(err: HttpErrorResponse) {

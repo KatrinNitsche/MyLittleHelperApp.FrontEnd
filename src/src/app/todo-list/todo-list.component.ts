@@ -34,10 +34,11 @@ export class TodoListComponent implements OnInit {
     })
   }
 
-  removeToDo(id:number) {
-    this.todoService.removeToDo(id).subscribe({
+  removeToDo(toDo:ToDo) {   
+    this.todoService.removeToDo(toDo.id).subscribe({
       next: todo => {
-        this.todos = this.todos.filter((v,i) => i !== id);
+        console.log(toDo);
+        this.todos = this.todos.filter((v,i) => v.id !== toDo.id);
       },
       error: err => this.errorMessage = err
     });

@@ -34,13 +34,10 @@ export class ToDoService {
     const body = JSON.stringify(id);
     
     const options = {
-      headers: headers,
-      body : body
+      headers: headers
     };
 
-    console.log(options);
-
-    return this.http.delete<ToDo>(this.baseUrl + this.endPoint, options);
+    return this.http.delete<ToDo>(this.baseUrl + this.endPoint + "?id=" + id, options);
   }
 
   handleError(err: HttpErrorResponse) {

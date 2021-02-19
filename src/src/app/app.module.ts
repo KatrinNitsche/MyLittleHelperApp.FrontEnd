@@ -11,6 +11,7 @@ import { QuizAppComponent } from './quiz-app/quiz-app.component';
 import { BudgetAppComponent } from './budget-app/budget-app.component';
 import { NotesComponent } from './notes/notes.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { NavigationComponent } from './navigation/navigation.component';
     QuizAppComponent,
     BudgetAppComponent,
     NotesComponent,
-    NavigationComponent
+    NavigationComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,7 @@ import { NavigationComponent } from './navigation/navigation.component';
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      //{ path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'todo-list', component: TodoListComponent }, 
       { path: 'budget-app', component: BudgetAppComponent },
       { path: 'notes', component: NotesComponent },   

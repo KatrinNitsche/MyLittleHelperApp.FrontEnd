@@ -29,7 +29,20 @@
                     <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
                 </svg>
             </div>
+            
             <div class="content" (click)="toggleDone(todo.id)">{{todo.content}}</div>
+            
+            <input class="editImportant" [hidden]="!isEditShow" type="checkbox" [(ngModel)]="todo.important"/>
+            <input class="editContent" [hidden]="!isEditShow" type="text" [(ngModel)]="todo.content"/>
+            <button [hidden]="isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
+                <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">                    
+                </svg>
+            </button>
+            <button [hidden]="!isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
+                <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">                    
+                </svg>
+            </button>
+
             <button class="btn delete" (click)="removeToDo(todo)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>

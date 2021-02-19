@@ -65,6 +65,22 @@
     font-weight: 700;
 }
 
+.editButton {
+    background-image: url('../icons/edit.svg');
+}
+
+.updateButton {
+    background-image: url('../icons/check.svg');
+}
+
+.editImportant {
+    margin: 10px;
+}
+
+.editContent {
+    padding-left: 5px;
+}
+
 .important {
     color: red;
     padding-right: 10px;

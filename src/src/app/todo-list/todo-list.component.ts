@@ -12,7 +12,8 @@ export class TodoListComponent implements OnInit {
   todos: ToDo[];
   errorMessage: string = "";
   inputToDo: string = "";
-  inputImportant: boolean = false;
+  inputImportant: boolean = false;  
+  isEditShow = false;
 
   constructor(private todoService: ToDoService) { }
 
@@ -27,17 +28,24 @@ export class TodoListComponent implements OnInit {
     });
   }
 
-  toggleDone(id:number) {
-    this.todos.map((v,i) => {  
-      if (i == id) v.completed = !v.completed;
-      return v;      
-    })
+  toggleEditDisplay(toDo:ToDo) {
+    this.isEditShow = !this.isEditShow;
+
+    if (!this.isEditShow) {
+      this.todoService.updateToDo(toDo).subscribe();
+    }
+  }
+
+  toggleDone(id:number) {    
+    var todo = this.todos.find((v,i) => v.id == id);
+    todo.completed = !todo.completed;
+    
+    this.todoService.updateToDo(todo).subscribe();
   }
 
   removeToDo(toDo:ToDo) {   
     this.todoService.removeToDo(toDo.id).subscribe({
       next: todo => {
-        console.log(toDo);
         this.todos = this.todos.filter((v,i) => v.id !== toDo.id);
       },
       error: err => this.errorMessage = err

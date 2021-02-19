@@ -23,9 +23,16 @@ export class ToDoService {
   }
 
   addToDo(toDo:ToDo): Observable<ToDo> {
-    const headers = { 'content-type': 'application/json' }  
+    const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(toDo);
     
+    return this.http.post<ToDo>(this.baseUrl + this.endPoint, body, {'headers': headers});
+  }
+
+  updateToDo(toDo:ToDo):Observable<ToDo> {
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(toDo);
+
     return this.http.post<ToDo>(this.baseUrl + this.endPoint, body, {'headers': headers});
   }
 

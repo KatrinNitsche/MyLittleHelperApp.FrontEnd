@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Note } from '../models/note';
+import { NoteService } from '../services/note-service.service';
 
 @Component({
   selector: 'app-notes',
@@ -8,35 +9,53 @@ import { Note } from '../models/note';
 })
 export class NotesComponent implements OnInit {
 
-  constructor() { }
-
   notes: Note[];
+  errorMessage: string = "";
   inputNoteTitle: string = "";
   inputNoteText: string = "";
 
+  constructor(private noteService: NoteService) { }
+
   ngOnInit(): void {
-    this.notes = [{
-      title: "First Note",
-      description: "This is my first note. You can add more notes by using the form above."
-    },
-    {
-      title: "Second Note",
-      description: "This is my second note which has a shorter text."
-    }
-    ];
+    this.notes = [];
+
+    this.noteService.getNotes().subscribe({
+      next: notes => {
+        this.notes = notes;
+      },
+      error: err => this.errorMessage = err
+    });
   }
 
   addNote() {
-    this.notes.push({
+
+    var newNote = {
+      id: 0,
       title: this.inputNoteTitle,
       description: this.inputNoteText
-    });
+    }
 
-    this.inputNoteTitle = "";
-    this.inputNoteText = "";
+    this.noteService.addNote(newNote).subscribe({
+        next: note => {
+            this.notes.push({
+              title: this.inputNoteTitle,
+              description: this.inputNoteText
+            });
+    
+            this.inputNoteTitle = "";
+            this.inputNoteText = "";
+        },
+        error: err => this.errorMessage = err
+      });
   }
 
-  removeNote(id) {
-    this.notes = this.notes.filter((v,i) => i !== id);
+  removeNote(id: number) {
+    this.noteService.removeNote(id).subscribe({
+      next: note => {
+        this.notes = this.notes.filter((v,i) => i !== id);
+      },
+      error: err => this.errorMessage = err
+    });
+    
   }
 }

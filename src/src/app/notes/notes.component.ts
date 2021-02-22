@@ -38,6 +38,7 @@ export class NotesComponent implements OnInit {
     this.noteService.addNote(newNote).subscribe({
         next: note => {
             this.notes.push({
+              id: 0,
               title: this.inputNoteTitle,
               description: this.inputNoteText
             });
@@ -52,7 +53,7 @@ export class NotesComponent implements OnInit {
   removeNote(id: number) {
     this.noteService.removeNote(id).subscribe({
       next: note => {
-        this.notes = this.notes.filter((v,i) => i !== id);
+        this.notes = this.notes.filter((v,i) => v.id !== note.id);
       },
       error: err => this.errorMessage = err
     });

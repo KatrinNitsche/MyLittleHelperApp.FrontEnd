@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Note } from '../models/note';
 import { NoteService } from '../services/note-service.service';
 
@@ -15,7 +16,7 @@ export class NotesComponent implements OnInit {
   inputNoteText: string = "";
   isEditShow = false;
 
-  constructor(private noteService: NoteService) { }
+  constructor(private noteService: NoteService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.notes = [];
@@ -24,7 +25,9 @@ export class NotesComponent implements OnInit {
       next: notes => {
         this.notes = notes;
       },
-      error: err => this.errorMessage = err
+      error: err => {
+        this.toastr.error(err);
+      }
     });
   }
 
@@ -54,8 +57,12 @@ export class NotesComponent implements OnInit {
     
             this.inputNoteTitle = "";
             this.inputNoteText = "";
+
+            this.toastr.info(note.title + " was added.");
         },
-        error: err => this.errorMessage = err
+        error: err => {
+          this.toastr.error(err);
+        }
       });
   }
 
@@ -63,8 +70,11 @@ export class NotesComponent implements OnInit {
     this.noteService.removeNote(id).subscribe({
       next: note => {
         this.notes = this.notes.filter((v,i) => v.id !== note.id);
+        this.toastr.info(note.title + " was removed.");
       },
-      error: err => this.errorMessage = err
+      error: err => {
+        this.toastr.error(err);
+      }
     });
     
   }

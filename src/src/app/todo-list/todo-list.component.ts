@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { ToDo } from '../models/Todo';
 import { ToDoService} from '../services/to-do-service.service'
 
@@ -15,20 +16,22 @@ export class TodoListComponent implements OnInit {
   inputImportant: boolean = false;  
   isEditShow = false;
 
-  constructor(private todoService: ToDoService) { }
+  constructor(private todoService: ToDoService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.todos = [];
 
     this.todoService.getToDos().subscribe({
       next: todos => {
-        this.todos = todos;       
+        this.todos = todos;          
       },
-      error: err => this.errorMessage = err
+      error: err => {
+        this.toastr.error(err);
+      }
     });
   }
 
-  toggleEditDisplay(toDo:ToDo) {
+  toggleEditDisplay(toDo:ToDo) {  
     this.isEditShow = !this.isEditShow;
 
     if (!this.isEditShow) {
@@ -47,8 +50,11 @@ export class TodoListComponent implements OnInit {
     this.todoService.removeToDo(toDo.id).subscribe({
       next: todo => {
         this.todos = this.todos.filter((v,i) => v.id !== toDo.id);
+        this.toastr.info("ToDo was removed.");
       },
-      error: err => this.errorMessage = err
+      error: err => {
+        this.toastr.error(err);
+      }
     });
   }
 
@@ -63,9 +69,12 @@ export class TodoListComponent implements OnInit {
 
     this.todoService.addToDo(newToDo).subscribe({ 
       next: todo => {
-        this.todos.push( newToDo);       
+        this.todos.push( newToDo);  
+        this.toastr.info("New ToDo was added.");
       },
-      error: err => this.errorMessage = err
+      error: err => {
+        this.toastr.error(err);
+      }
     });
 
     this.inputToDo = "";

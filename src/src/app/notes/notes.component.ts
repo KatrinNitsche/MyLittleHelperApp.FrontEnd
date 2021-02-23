@@ -16,11 +16,15 @@ export class NotesComponent implements OnInit {
   inputNoteText: string = "";
   isEditShow = false;
   expanded: boolean = false;
-
+  
   constructor(private noteService: NoteService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.notes = [];
+    this.LoadNotes();
+  }
+
+  LoadNotes() {
+     this.notes = [];
 
     this.noteService.getNotes().subscribe({
       next: notes => {
@@ -50,12 +54,7 @@ export class NotesComponent implements OnInit {
 
     this.noteService.addNote(newNote).subscribe({
         next: note => {
-            this.notes.push({
-              id: 0,
-              title: this.inputNoteTitle,
-              description: this.inputNoteText
-            });
-    
+            this.LoadNotes();    
             this.inputNoteTitle = "";
             this.inputNoteText = "";
 
@@ -81,5 +80,16 @@ export class NotesComponent implements OnInit {
 
   expandNote() {
     this.expanded = !this.expanded;
+  }
+
+  filterList(event: any) {
+    var searchTerm = event.target.value;
+    console.log(searchTerm);
+    if (searchTerm == "") {
+      this.LoadNotes();
+    } else {
+      this.LoadNotes();
+      this.notes = this.notes.filter((v,i) => v.title.includes(searchTerm) || v.description.includes(searchTerm));
+    }
   }
 }

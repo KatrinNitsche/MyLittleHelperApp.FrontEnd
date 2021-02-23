@@ -47,11 +47,13 @@
 
 .NotesHeadline {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background-color: var(--dark);
     height: 40px;
-    color: #fff;    
+    color: #fff;   
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .NotesList {

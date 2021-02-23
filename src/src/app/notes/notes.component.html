@@ -17,7 +17,13 @@
     </form>
 </div>
 
-<div class="NotesHeadline">Notes {{notes.length}}</div>
+<div class="NotesHeadline">
+    <span>Notes ({{notes.length}})</span>
+    <div class="SearchForm">
+        <span>Search: </span>
+        <input type="text" class="searchInput" (change)="filterList($event)"/>
+    </div>
+</div>
 
 <div class="NotesList">
     <div class="Note" *ngFor="let note of notes; let i = index;">

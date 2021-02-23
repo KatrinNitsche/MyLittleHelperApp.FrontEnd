@@ -1,7 +1,7 @@
 <h1>My Little Helpers - Dashboard</h1>
 
 <div class="todoList">
-  <h3> {{todos.length}} ToDo's</h3>
+  <h3> ToDo's</h3>
   <div *ngFor="let todo of todos; let i = index;">
     <div class="todoEntry" *ngIf="!todo.completed">            
       <span>{{todo.content}}</span>

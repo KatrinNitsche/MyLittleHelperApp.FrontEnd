@@ -74,8 +74,37 @@
     font-weight: bolder;
 }
 
+.NoteText {
+    max-height: 100px;
+    overflow: hidden;
+}
+
 .delete {
     color: var(--dark);
     width: 100%;
     text-align: right;    
+}
+
+.buttonBar {
+    display: flex;
+    flex-direction: row;  
+}
+
+.editButton {
+    color: var(--dark);
+    background-image: url('../icons/edit.svg');
+}
+
+.updateButton {
+    color: var(--dark);
+    background-image: url('../icons/check.svg');
+}
+
+.editForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.editContent {
+    margin: 5px;
 }

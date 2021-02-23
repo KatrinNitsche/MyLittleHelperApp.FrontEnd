@@ -21,7 +21,7 @@ import { HomeComponent } from './home/home.component';
     BudgetAppComponent,
     NotesComponent,
     NavigationComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

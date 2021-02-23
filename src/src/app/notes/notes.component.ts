@@ -13,6 +13,7 @@ export class NotesComponent implements OnInit {
   errorMessage: string = "";
   inputNoteTitle: string = "";
   inputNoteText: string = "";
+  isEditShow = false;
 
   constructor(private noteService: NoteService) { }
 
@@ -25,6 +26,14 @@ export class NotesComponent implements OnInit {
       },
       error: err => this.errorMessage = err
     });
+  }
+
+  toggleEditDisplay(note:Note) {
+    this.isEditShow = !this.isEditShow;
+
+    if (!this.isEditShow) {
+      this.noteService.updateNote(note).subscribe();
+    }
   }
 
   addNote() {

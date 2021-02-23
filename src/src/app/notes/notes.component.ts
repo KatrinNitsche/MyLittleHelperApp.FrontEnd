@@ -15,6 +15,7 @@ export class NotesComponent implements OnInit {
   inputNoteTitle: string = "";
   inputNoteText: string = "";
   isEditShow = false;
+  expanded: boolean = false;
 
   constructor(private noteService: NoteService, private toastr: ToastrService) { }
 
@@ -75,7 +76,10 @@ export class NotesComponent implements OnInit {
       error: err => {
         this.toastr.error(err);
       }
-    });
-    
+    });    
+  }
+
+  expandNote() {
+    this.expanded = !this.expanded;
   }
 }

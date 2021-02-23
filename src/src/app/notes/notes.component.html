@@ -21,9 +21,13 @@
 
 <div class="NotesList">
     <div class="Note" *ngFor="let note of notes; let i = index;">
-        <div [hidden]="isEditShow" class="NoteTitle">{{note.title}}</div>
-        <div [hidden]="isEditShow" class="NoteText">{{note.description}}</div>
-          
+        
+        <div [hidden]="isEditShow">
+            <div class="NoteTitle">{{note.title}}</div>
+            <div [hidden]="expanded" class="NoteText" (click)="expandNote()">{{note.description}}</div>
+            <div [hidden]="!expanded" (click)="expandNote()">{{note.description}}</div>  
+        </div>
+
         <div class="editForm">
             <input class="editContent" [hidden]="!isEditShow" type="text" [(ngModel)]="note.title"/>
             <textarea class="editContent" [hidden]="!isEditShow" [(ngModel)]="note.description" rows="10"></textarea>           

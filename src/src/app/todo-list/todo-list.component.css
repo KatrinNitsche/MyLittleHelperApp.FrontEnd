@@ -1,7 +1,7 @@
 
 .todo-list {
     padding-top: 10px;
-    width: 50%;
+    width: 80%;
 }
 
 .todo {
@@ -93,6 +93,54 @@
     border: 1px solid var(--middle);
     padding: 10px;
     margin-bottom: 20px;
+}
+
+.todo-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: flex-start;
+}
+
+.todo-filters {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--dark);
+    padding: 5px;
+    width: 20%;
+    margin-right: 10px;   
+}
+
+.sortingList {
+    width: 50%;
+    height: 40px;    
+    appearance: none;
+    border: none;
+    background-color: var(--light);
+    font-size: 18px;
+    outline: none;
+    padding-left: 5px;
+}
+
+.filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.filter-todo-input {
+    display: block;   
+    height: 40px;    
+    width: 99%;
+    appearance: none;
+    border: none;
+    background-color: var(--light);
+    font-size: 20px;
+    outline: none;
+    margin-bottom: 5px;
+    padding-left: 5px;
 }
 
 @media only screen and (max-width: 1024px) {

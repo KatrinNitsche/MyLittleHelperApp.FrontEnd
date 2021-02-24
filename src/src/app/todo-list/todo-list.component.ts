@@ -15,20 +15,48 @@ export class TodoListComponent implements OnInit {
   inputToDo: string = "";
   inputImportant: boolean = false;  
   isEditShow = false;
+  
+  importantFilter: boolean = false;
+  doneFilter: boolean = false; 
+  searchTermFilter: string = "";
+
+  sortingColumn: string = "";
 
   constructor(private todoService: ToDoService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.loadToDos();
+  }
+
+  loadToDos() {
     this.todos = [];
 
     this.todoService.getToDos().subscribe({
       next: todos => {
-        this.todos = todos;          
+        this.todos = todos;  
+        this.filterToDos();        
       },
       error: err => {
         this.toastr.error(err);
       }
     });
+  }
+
+  filterToDos() {   
+    if (this.doneFilter) {
+      this.todos = this.todos.filter(x => x.completed == this.doneFilter);    
+    }
+    if (this.importantFilter) {
+      this.todos = this.todos.filter(x => x.important);
+    }
+
+    if (this.searchTermFilter != "") {
+      this.todos = this.todos.filter(x => x.content.includes(this.searchTermFilter));
+    }
+  } 
+
+  sortList() {
+
   }
 
   toggleEditDisplay(toDo:ToDo) {  
@@ -69,7 +97,7 @@ export class TodoListComponent implements OnInit {
 
     this.todoService.addToDo(newToDo).subscribe({ 
       next: todo => {
-        this.todos.push( newToDo);  
+        this.loadToDos();
         this.toastr.info("New ToDo was added.");
       },
       error: err => {
@@ -79,5 +107,4 @@ export class TodoListComponent implements OnInit {
 
     this.inputToDo = "";
   }
-
 }

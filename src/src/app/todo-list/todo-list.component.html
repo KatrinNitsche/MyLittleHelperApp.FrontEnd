@@ -16,37 +16,63 @@
         <input type="submit" value="Add ToDo" class="todo-submit"/>
     </form>
 
-    <h3>My ToDo List {{todos.length}}</h3>
-
-    <div class="todo-list">
-        <div  *ngFor="let todo of todos; let i = index;" 
-            class="todo {{ (todo.completed ? 'done' : '') }}">            
-            <div class="important" *ngIf="todo.important">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
-                    <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1L1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
-                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-                </svg>
+    <div class="todo-content">
+        <div class="todo-filters">
+            <div class="filter">
+                <label for="sortingSetting">Sort By</label>
+                <select name="sortingList" class="sortingList" [(ngModel)]="sortingColumn" (change)="sortList()">
+                    <option value="important">Important</option>
+                    <option value="content">Content</option>
+                    <option value="done">Done</option>
+                </select>
             </div>
-            
-            <div class="content" (click)="toggleDone(todo.id)">{{todo.content}}</div>
-            
-            <input class="editImportant" [hidden]="!isEditShow" type="checkbox" [(ngModel)]="todo.important"/>
-            <input class="editContent" [hidden]="!isEditShow" type="text" [(ngModel)]="todo.content"/>
-            <button [hidden]="isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
-                <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">                    
-                </svg>
-            </button>
-            <button [hidden]="!isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
-                <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">                    
-                </svg>
-            </button>
+            <form (submit)="loadToDos()">
+                <div class="filter">
+                    <label for="importantFilter">Important</label>
+                    <input name="importantFilter" type="checkbox" [(ngModel)]="importantFilter" class="todo-checkbox"/>
+                </div>
+                <div class="filter">
+                    <label for="doneFilter">Done</label>
+                    <input name="doneFilter" type="checkbox" [(ngModel)]="doneFilter" class="todo-checkbox"/>
+                </div>  
+                <div class="filter">                  
+                    <input name="searchTermFilter" type="text" [(ngModel)]="searchTermFilter" class="filter-todo-input"/>
+                </div>
+                <input type="submit" value="Search" class="todo-submit"/>
+            </form>           
+        </div>
 
-            <button class="btn delete" (click)="removeToDo(todo)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                </svg>
-            </button>
+        <div class="todo-list">
+            <h3>My ToDo List {{todos.length}}</h3>
+            <div  *ngFor="let todo of todos" 
+                class="todo {{ (todo.completed ? 'done' : '') }}">            
+                <div class="important" *ngIf="todo.important">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                        <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1L1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                    </svg>
+                </div>
+                
+                <div class="content" (click)="toggleDone(todo.id)">{{todo.content}}</div>
+                
+                <input class="editImportant" [hidden]="!isEditShow" type="checkbox" [(ngModel)]="todo.important"/>
+                <input class="editContent" [hidden]="!isEditShow" type="text" [(ngModel)]="todo.content"/>
+                <button [hidden]="isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
+                    <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">                    
+                    </svg>
+                </button>
+                <button [hidden]="!isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
+                    <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">                    
+                    </svg>
+                </button>
+
+                <button class="btn delete" (click)="removeToDo(todo)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
 </div>

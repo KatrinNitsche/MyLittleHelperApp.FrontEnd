@@ -20,7 +20,7 @@ export class TodoListComponent implements OnInit {
   doneFilter: boolean = false; 
   searchTermFilter: string = "";
 
-  sortingColumn: string = "";
+  sortingColumn: string = "important";
 
   constructor(private todoService: ToDoService, private toastr: ToastrService) { }
 
@@ -34,7 +34,8 @@ export class TodoListComponent implements OnInit {
     this.todoService.getToDos().subscribe({
       next: todos => {
         this.todos = todos;  
-        this.filterToDos();        
+        this.filterToDos(); 
+        this.sortList();       
       },
       error: err => {
         this.toastr.error(err);
@@ -56,7 +57,15 @@ export class TodoListComponent implements OnInit {
   } 
 
   sortList() {
-
+    if (this.sortingColumn == "done") {   
+      this.todos = this.todos.sort((a, b) => (a.completed < b.completed) ? 1 : -1);
+    }
+    else if (this.sortingColumn == "important") {
+      this.todos = this.todos.sort((a, b) => (a.important < b.important) ? 1 : -1);
+    }
+    else if (this.sortingColumn == "content") {
+      this.todos = this.todos.sort((a, b) => (a.content < b.content) ? 1 : -1);
+    }
   }
 
   toggleEditDisplay(toDo:ToDo) {  

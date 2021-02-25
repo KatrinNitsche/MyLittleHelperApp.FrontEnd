@@ -18,7 +18,12 @@ export class HomeComponent {
 
     this.todoService.getToDos().subscribe({
       next: todos => {
-        this.todos = todos;       
+        
+        todos.forEach(function(todo) {
+          console.log(todo.dueDate.toDateString);
+        });
+
+        this.todos = todos.filter(x => x.dueDate.getDate == new Date().getDate);          
       },
       error: err => this.errorMessage = err
     });

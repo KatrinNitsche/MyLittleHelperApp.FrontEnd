@@ -3,4 +3,8 @@ export class ToDo {
     content: string;
     completed: boolean;
     important: boolean;
+    dueDate: Date;
+    repetitionType: number;
+    created: Date;
+    updated: Date;    
 }

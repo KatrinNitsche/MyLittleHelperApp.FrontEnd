@@ -49,7 +49,9 @@ export class NotesComponent implements OnInit {
     var newNote = {
       id: 0,
       title: this.inputNoteTitle,
-      description: this.inputNoteText
+      description: this.inputNoteText,
+      created: new Date(),
+      updated: new Date()
     }
 
     this.noteService.addNote(newNote).subscribe({

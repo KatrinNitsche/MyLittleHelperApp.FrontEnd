@@ -6,6 +6,7 @@
 
 .todo {
     display: flex;
+    align-content: space-between;
     padding: 10px 15px;
     background-color: var(--light);
     border-bottom: 1px solid var(--light);
@@ -74,7 +75,7 @@
 }
 
 .editImportant {
-    margin: 10px;
+    margin: 10px 0;
 }
 
 .editContent {
@@ -141,6 +142,29 @@
     outline: none;
     margin-bottom: 5px;
     padding-left: 5px;
+}
+
+.note-edit-form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.edit-note-input {
+    padding: 5px;
+}
+
+.edit-note-input label {
+    width: 120px;
+}
+
+.repeat-intervall {
+    background: white;
+}
+
+.buttonBar {
+    display: flex;
+    flex-direction: row;  
 }
 
 @media only screen and (max-width: 1024px) {

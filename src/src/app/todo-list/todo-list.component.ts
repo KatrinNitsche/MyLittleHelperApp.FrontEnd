@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { $ } from 'protractor';
 import { ToDo } from '../models/Todo';
 import { ToDoService} from '../services/to-do-service.service'
 
@@ -13,7 +14,8 @@ export class TodoListComponent implements OnInit {
   todos: ToDo[];
   errorMessage: string = "";
   inputToDo: string = "";
-  inputImportant: boolean = false;  
+  inputImportant: boolean = false; 
+  inputRepetitionType: number = 0; 
   isEditShow = false;
   
   importantFilter: boolean = false;
@@ -71,8 +73,9 @@ export class TodoListComponent implements OnInit {
   toggleEditDisplay(toDo:ToDo) {  
     this.isEditShow = !this.isEditShow;
 
-    if (!this.isEditShow) {
+    if (!this.isEditShow && toDo != undefined) {     
       this.todoService.updateToDo(toDo).subscribe();
+    } else {
     }
   }
 
@@ -101,7 +104,11 @@ export class TodoListComponent implements OnInit {
       id: 0,     
       content: this.inputToDo,
       completed: false,
-      important: this.inputImportant
+      important: this.inputImportant,
+      repetitionType: this.inputRepetitionType,
+      created: new Date(),
+      updated: new Date(),
+      dueDate: new Date()
     }
 
     this.todoService.addToDo(newToDo).subscribe({ 

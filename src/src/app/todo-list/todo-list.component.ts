@@ -68,6 +68,9 @@ export class TodoListComponent implements OnInit {
     else if (this.sortingColumn == "content") {
       this.todos = this.todos.sort((a, b) => (a.content < b.content) ? 1 : -1);
     }
+    else if (this.sortingColumn == "dueDate") {
+      this.todos = this.todos.sort((a, b) => (a.dueDate > b.dueDate) ? 1 : -1);
+    }
   }
 
   toggleEditDisplay(toDo:ToDo) {  

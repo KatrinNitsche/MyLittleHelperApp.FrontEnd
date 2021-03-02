@@ -3,7 +3,7 @@
 <div class="todoList">
   <h3> ToDo's</h3>
   <div *ngFor="let todo of todos; let i = index;">
-    <div class="todoEntry" *ngIf="!todo.completed">            
+    <div class="todoEntry">            
       <span>{{todo.content}}</span>
     </div>   
   </div>

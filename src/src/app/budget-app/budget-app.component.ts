@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { budgetEntry } from '../models/budgetEntry';
+import { ToastrService } from 'ngx-toastr';
+import { BudgetEntry } from '../models/budgetEntry';
+import { BudgetService } from '../services/budget-service.service';
 
 @Component({
   selector: 'app-budget-app',
@@ -8,46 +10,76 @@ import { budgetEntry } from '../models/budgetEntry';
 })
 export class BudgetAppComponent implements OnInit {
 
-  budgetEntriesIncome: budgetEntry[];
-  budgetEntriesExpenses: budgetEntry[];
+  budgetEntriesIncome: BudgetEntry[];
+  budgetEntriesExpenses: BudgetEntry[];
 
   remainingBudget: number = 0;
   inputAmount: number = 0;
   inputDescription: string = "";
+  inputBudgetDate: Date;
 
-  constructor() { }
+  constructor(private budgetService: BudgetService, private toastr: ToastrService) { }
 
   ngOnInit(): void {    
+   this.LoadBudget();
+  }
+
+  LoadBudget() {
     this.budgetEntriesIncome = [];
     this.budgetEntriesExpenses = [];
+    this.remainingBudget = 0;
+
+    this.budgetService.getBudget().subscribe({
+      next: budget => {
+        this.budgetEntriesIncome = budget.filter(b => b.amount > 0);
+        this.budgetEntriesExpenses = budget.filter(b => b.amount < 0);
+
+        var saldo = 0;
+        budget.forEach(function(bugetEntry) {
+          saldo += bugetEntry.amount;
+        });
+
+        this.remainingBudget = saldo;
+      },
+      error: err => {
+        this.toastr.error(err);
+      }
+    });
   }
 
   addBudgetEntry() {
     
-    if (this.inputAmount > 0)
-    {
-        this.budgetEntriesIncome.push( {
-        description: this.inputDescription,
-        amount: this.inputAmount,
-        });
-        
-    } else {
-        this.budgetEntriesExpenses.push( {
-          description: this.inputDescription,
-          amount: this.inputAmount,
-        });
+    var newBudgetEntry = {
+      id: 0,
+      description: this.inputDescription,
+      amount: this.inputAmount,
+      budgetDate: this.inputBudgetDate,   
+      created: new Date(),
+      updated: new Date() 
     }
-    
-    this.remainingBudget += this.inputAmount;
-    this.inputDescription = "";
-    this.inputAmount = 0;
+
+    this.budgetService.addBudget(newBudgetEntry).subscribe({
+      next: budgetEntry => {
+        this.LoadBudget();
+        this.inputDescription = "";
+        this.inputAmount = 0;
+        this.toastr.info(budgetEntry.description + " was added.");
+      },
+      error: err => {
+        this.toastr.error(err);
+      }
+    });
   }
 
-  removeBudgetEntryIncome(id) {
-    this.budgetEntriesIncome = this.budgetEntriesIncome.filter((v,i) => i !== id);
-  }
-
-  removeBudgetEntryExpense(id) {
-    this.budgetEntriesExpenses = this.budgetEntriesExpenses.filter((v,i) => i !== id);
+  removeBudgetEntry(id) {
+    this.budgetService.removeBudget(id).subscribe({
+      next: budgetEntry => {
+        this.LoadBudget();
+        this.toastr.info(budgetEntry.description + " was removed");
+      },
+      error: err => {
+        this.toastr.error(err);
+      }
+    });
   }
 }

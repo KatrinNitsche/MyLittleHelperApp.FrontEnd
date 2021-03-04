@@ -45,7 +45,7 @@
 
 .budget-input-description {
     display: block;
-    width: 39%;
+    width: 35%;
     height: 40px;    
     appearance: none;
     border: none;
@@ -58,7 +58,7 @@
 
 .budget-input-amount {
     display: block;
-    width: 20%;
+    width: 15%;
     height: 40px;    
     appearance: none;
     border: none;
@@ -74,11 +74,24 @@
     padding: 10px 15px;    
 }
 
+.buget-input-date {
+    display: block;
+    width: 20%;
+    height: 40px;    
+    appearance: none;
+    border: none;
+    background-color: var(--light);
+    font-size: 20px;
+    outline: none;
+    padding-left: 5px;
+    margin-right: 10px;
+}
+
 .budget-submit {
     display: block;
     width: 100%;
     height: 40px;
-    max-width: 200px;
+    max-width: 150px;
     appearance: none;
     border: none;
     outline: none;

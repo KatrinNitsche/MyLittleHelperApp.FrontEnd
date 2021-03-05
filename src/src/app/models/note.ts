@@ -4,4 +4,7 @@ export class Note {
     description: string;
     created: Date;
     updated: Date;    
+
+    isEditShow: boolean;
+    expanded: boolean;
 }

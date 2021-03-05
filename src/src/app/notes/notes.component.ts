@@ -14,9 +14,7 @@ export class NotesComponent implements OnInit {
   errorMessage: string = "";
   inputNoteTitle: string = "";
   inputNoteText: string = "";
-  isEditShow = false;
-  expanded: boolean = false;
-  
+   
   constructor(private noteService: NoteService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -37,9 +35,9 @@ export class NotesComponent implements OnInit {
   }
 
   toggleEditDisplay(note:Note) {
-    this.isEditShow = !this.isEditShow;
+    note.isEditShow = !note.isEditShow;
 
-    if (!this.isEditShow) {
+    if (!note.isEditShow) {
       this.noteService.updateNote(note).subscribe();
     }
   }
@@ -51,7 +49,9 @@ export class NotesComponent implements OnInit {
       title: this.inputNoteTitle,
       description: this.inputNoteText,
       created: new Date(),
-      updated: new Date()
+      updated: new Date(),
+      isEditShow: false,
+      expanded: false
     }
 
     this.noteService.addNote(newNote).subscribe({
@@ -80,8 +80,8 @@ export class NotesComponent implements OnInit {
     });    
   }
 
-  expandNote() {
-    this.expanded = !this.expanded;
+  expandNote(note: Note) {
+    note.expanded = !note.expanded;
   }
 
   filterList(event: any) {

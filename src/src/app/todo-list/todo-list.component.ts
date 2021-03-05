@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { $ } from 'protractor';
 import { ToDo } from '../models/Todo';
 import { ToDoService} from '../services/to-do-service.service'
 
@@ -16,12 +15,10 @@ export class TodoListComponent implements OnInit {
   inputToDo: string = "";
   inputImportant: boolean = false; 
   inputRepetitionType: number = 0; 
-  isEditShow = false;
-  
+    
   importantFilter: boolean = false;
   doneFilter: boolean = false; 
   searchTermFilter: string = "";
-
   sortingColumn: string = "important";
 
   constructor(private todoService: ToDoService, private toastr: ToastrService) { }
@@ -74,9 +71,9 @@ export class TodoListComponent implements OnInit {
   }
 
   toggleEditDisplay(toDo:ToDo) {  
-    this.isEditShow = !this.isEditShow;
+    toDo.isEditShow = !toDo.isEditShow;
 
-    if (!this.isEditShow && toDo != undefined) {     
+    if (!toDo.isEditShow && toDo != undefined) {     
       this.todoService.updateToDo(toDo).subscribe();
     } else {
     }
@@ -111,7 +108,8 @@ export class TodoListComponent implements OnInit {
       repetitionType: this.inputRepetitionType,
       created: new Date(),
       updated: new Date(),
-      dueDate: new Date()
+      dueDate: new Date(),
+      isEditShow: false
     }
 
     this.todoService.addToDo(newToDo).subscribe({ 

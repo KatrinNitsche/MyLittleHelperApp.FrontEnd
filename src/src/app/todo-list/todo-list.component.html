@@ -54,12 +54,12 @@
                    </svg>
                 </div>
                     
-                <div [hidden]="isEditShow" class="content" (click)="toggleDone(todo.id)">
+                <div [hidden]="todo.isEditShow" class="content" (click)="toggleDone(todo.id)">
                     <span>{{todo.content}}</span>
                     <small [hidden]="!todo.dueDate"> ({{todo.dueDate | date: 'dd/MM/yyyy'}})</small>                     
                 </div>
                
-                <div class="note-edit-form" [hidden]="!isEditShow">
+                <div class="note-edit-form" [hidden]="!todo.isEditShow">
                     
                     <div class="edit-note-input">
                         <label for="editImportant">Important</label>
@@ -91,15 +91,15 @@
                 </div>
                 
                 <div class="buttonBar">
-                    <button [hidden]="isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
+                    <button [hidden]="todo.isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
                         <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">                    
                         </svg>
                     </button>
-                    <button [hidden]="!isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
+                    <button [hidden]="!todo.isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
                         <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">                    
                         </svg>
                     </button>
-                    <button [hidden]="!isEditShow" class="btn" (click)="toggleEditDisplay()">
+                    <button [hidden]="!todo.isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
                         <span>X</span>
                     </button>
                     <button class="btn delete" (click)="removeToDo(todo)">

@@ -5,4 +5,6 @@ export class BudgetEntry {
     budgetDate: Date;
     created: Date;
     updated: Date;    
+
+    isEditShow: boolean;
 }

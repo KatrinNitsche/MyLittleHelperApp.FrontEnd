@@ -7,4 +7,12 @@ export class ToDo {
     repetitionType: number;
     created: Date;
     updated: Date;    
+
+    isEditShow: boolean;
+}
+
+export class MonthPicker {
+    year: number;
+    month: number;
+    monthName: string;
 }

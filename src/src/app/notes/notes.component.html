@@ -28,25 +28,28 @@
 <div class="NotesList">
     <div class="Note" *ngFor="let note of notes; let i = index;">
         
-        <div [hidden]="isEditShow">
+        <div [hidden]="note.isEditShow">
             <div class="NoteTitle">{{note.title}}</div>
-            <div [hidden]="expanded" class="NoteText" (click)="expandNote()">{{note.description}}</div>
-            <div [hidden]="!expanded" (click)="expandNote()">{{note.description}}</div>  
+            <div [hidden]="note.expanded" class="NoteText" (click)="expandNote(note)">{{note.description}}</div>
+            <div [hidden]="!note.expanded" (click)="expandNote(note)">{{note.description}}</div>  
         </div>
 
-        <div class="editForm">
-            <input class="editContent" [hidden]="!isEditShow" type="text" [(ngModel)]="note.title"/>
-            <textarea class="editContent" [hidden]="!isEditShow" [(ngModel)]="note.description" rows="10"></textarea>           
+        <div class="editForm" [hidden]="!note.isEditShow">
+            <input class="editContent" type="text" [(ngModel)]="note.title"/>
+            <textarea class="editContent" [(ngModel)]="note.description" rows="10"></textarea>           
         </div>
 
         <div class="buttonBar">
-            <button [hidden]="isEditShow" class="btn" (click)="toggleEditDisplay(note)">
+            <button [hidden]="note.isEditShow" class="btn" (click)="toggleEditDisplay(note)">
                 <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">                    
                 </svg>
             </button>
-            <button [hidden]="!isEditShow" class="btn" (click)="toggleEditDisplay(note)">
+            <button [hidden]="!note.isEditShow" class="btn" (click)="toggleEditDisplay(note)">
                 <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">                    
                 </svg>
+            </button>
+            <button [hidden]="!note.isEditShow" class="btn" (click)="toggleEditDisplay(note)">
+                <span>X</span>
             </button>
             <button class="btn delete" (click)="removeNote(note.id)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

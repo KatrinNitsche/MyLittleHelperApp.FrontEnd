@@ -14,6 +14,7 @@ export class NotesComponent implements OnInit {
   errorMessage: string = "";
   inputNoteTitle: string = "";
   inputNoteText: string = "";
+  searchTerm: string = "";
    
   constructor(private noteService: NoteService, private toastr: ToastrService) { }
 
@@ -27,6 +28,11 @@ export class NotesComponent implements OnInit {
     this.noteService.getNotes().subscribe({
       next: notes => {
         this.notes = notes;
+
+        if (this.searchTerm == "") {        
+        } else {         
+          this.notes = this.notes.filter((v,i) => v.title.toLocaleUpperCase().includes(this.searchTerm.toLocaleUpperCase()) || v.description.toLocaleUpperCase().includes(this.searchTerm.toLocaleUpperCase()));
+        }
       },
       error: err => {
         this.toastr.error(err);
@@ -84,14 +90,7 @@ export class NotesComponent implements OnInit {
     note.expanded = !note.expanded;
   }
 
-  filterList(event: any) {
-    var searchTerm = event.target.value;
-    console.log(searchTerm);
-    if (searchTerm == "") {
-      this.LoadNotes();
-    } else {
-      this.LoadNotes();
-      this.notes = this.notes.filter((v,i) => v.title.includes(searchTerm) || v.description.includes(searchTerm));
-    }
+  FilterList() {
+    this.LoadNotes();
   }
 }

@@ -18,6 +18,8 @@ export class BudgetAppComponent implements OnInit {
   monthPickerList: MonthPicker[];
  
   remainingBudget: number = 0;
+  sumIncome: number = 0;
+  sumExpenses: number = 0;
   inputAmount: number = 0;
   inputDescription: string = "";
   inputBudgetDate: Date;
@@ -40,6 +42,8 @@ export class BudgetAppComponent implements OnInit {
     this.budgetEntriesIncome = [];
     this.budgetEntriesExpenses = [];
     this.remainingBudget = 0;
+    this.sumExpenses = 0;
+    this.sumIncome = 0;
 
     this.budgetService.getBudget().subscribe({
       next: budget => {
@@ -48,11 +52,20 @@ export class BudgetAppComponent implements OnInit {
         this.budgetEntriesExpenses =  this.budgetList.filter(b => b.amount < 0).sort((a, b) => (a.amount > b.amount) ? 1 : -1);
 
         var saldo = 0;
-        budget.forEach(function(bugetEntry) {
+        var expenses = 0;
+        var income = 0;
+        this.budgetList.forEach(function(bugetEntry) {
           saldo += bugetEntry.amount;
+          if (bugetEntry.amount < 0) {
+            expenses += bugetEntry.amount * -1;
+          }else {
+            income += bugetEntry.amount;
+          }
         });
-
+        
         this.remainingBudget = saldo;
+        this.sumExpenses = expenses;
+        this.sumIncome = income;
       },
       error: err => {
         this.toastr.error(err);

@@ -53,7 +53,7 @@
 
 <div class="budgetLists">
     <div class="budgetList">
-        <h3 class="incomeHeadline">Income</h3>
+        <h3 class="incomeHeadline">Income (£{{sumIncome}})</h3>
         <div class="budget-list">
             <div  *ngFor="let budget of budgetEntriesIncome; let i = index;" 
                 class="budget {{ (budget.completed ? 'done' : '') }}">            
@@ -101,7 +101,7 @@
     </div>
 
     <div class="budgetList">
-        <h3 class="expensesHeadline">Expenses</h3>
+        <h3 class="expensesHeadline">Expenses (£{{sumExpenses}})</h3>
         <div class="budget-list">
             <div  *ngFor="let budget of budgetEntriesExpenses; let i = index;" 
                 class="budget {{ (budget.completed ? 'done' : '') }}">            

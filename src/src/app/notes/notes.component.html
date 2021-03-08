@@ -21,7 +21,7 @@
     <span>Notes ({{notes.length}})</span>
     <div class="SearchForm">
         <span>Search: </span>
-        <input type="text" class="searchInput" (change)="filterList($event)"/>
+        <input type="text" class="searchInput" [(ngModel)]="searchTerm" (blur)="FilterList()" />
     </div>
 </div>
 

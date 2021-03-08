@@ -30,7 +30,7 @@ export class TodoListComponent implements OnInit {
   loadToDos() {
     this.todos = [];
 
-    this.todoService.getToDos().subscribe({
+    this.todoService.getToDos(false).subscribe({
       next: todos => {
         this.todos = todos;  
         this.filterToDos(); 

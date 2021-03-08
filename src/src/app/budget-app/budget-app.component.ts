@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { filter } from 'rxjs/operators';
 import { BudgetEntry } from '../models/budgetEntry';
 import { MonthPicker } from '../models/Todo';
 import { BudgetService } from '../services/budget-service.service';
@@ -20,35 +21,19 @@ export class BudgetAppComponent implements OnInit {
   inputAmount: number = 0;
   inputDescription: string = "";
   inputBudgetDate: Date;
+  filterYear: number;
+  filterMonth: string;  
 
   constructor(private budgetService: BudgetService, private toastr: ToastrService) { }
 
-  ngOnInit(): void {    
-   this.LoadBudget();
+  ngOnInit(): void {      
+   this.InitBudgetSelector();
+   this.LoadBudget()
   }
 
-  InitMonthPickerList() {
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-    this.monthPickerList = [];
-
-    var list =[];
-    this.budgetList.forEach(function(budget) {
-      var date = new Date( budget.budgetDate);
-      var newEntry = new MonthPicker();
-      newEntry.month = date.getMonth() + 1;
-      newEntry.year = date.getFullYear();
-      newEntry.monthName = monthNames[newEntry.month];
-
-      var check = list.filter(mp => mp.month == newEntry.month && mp.year == newEntry.year);     
-      if (check.length == 0) {      
-        list.push(newEntry);
-      }
-
-    });
-   
-    this.monthPickerList = list;
-
-    console.log(this.monthPickerList);
+  InitBudgetSelector() {
+    this.filterYear = new Date().getFullYear();
+    this.filterMonth = new Date().getMonth().toString();  
   }
 
   LoadBudget() {
@@ -58,9 +43,9 @@ export class BudgetAppComponent implements OnInit {
 
     this.budgetService.getBudget().subscribe({
       next: budget => {
-        this.budgetList = budget;
-        this.budgetEntriesIncome = budget.filter(b => b.amount > 0).sort((a, b) => (a.amount > b.amount) ? 1 : -1);;
-        this.budgetEntriesExpenses = budget.filter(b => b.amount < 0).sort((a, b) => (a.amount > b.amount) ? 1 : -1);;
+        this.budgetList = budget.filter(b => new Date(b.budgetDate).getFullYear() == this.filterYear &&  new Date(b.budgetDate).getMonth().toString() == this.filterMonth);
+        this.budgetEntriesIncome =  this.budgetList.filter(b => b.amount > 0).sort((a, b) => (a.amount > b.amount) ? 1 : -1);
+        this.budgetEntriesExpenses =  this.budgetList.filter(b => b.amount < 0).sort((a, b) => (a.amount > b.amount) ? 1 : -1);
 
         var saldo = 0;
         budget.forEach(function(bugetEntry) {
@@ -68,7 +53,6 @@ export class BudgetAppComponent implements OnInit {
         });
 
         this.remainingBudget = saldo;
-        this.InitMonthPickerList();
       },
       error: err => {
         this.toastr.error(err);
@@ -79,7 +63,8 @@ export class BudgetAppComponent implements OnInit {
   toggleEditDisplay(budgetEntry: BudgetEntry) {  
     budgetEntry.isEditShow = !budgetEntry.isEditShow;
 
-    if (!budgetEntry.isEditShow && budgetEntry != undefined) {     
+    if (!budgetEntry.isEditShow && budgetEntry != undefined) {  
+      console.log(budgetEntry);
       this.budgetService.updateBudget(budgetEntry).subscribe();
     }
   }

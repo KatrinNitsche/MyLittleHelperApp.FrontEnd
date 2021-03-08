@@ -24,7 +24,10 @@
 
 .remainingBudget {
     background-color: var(--middle);
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     font-weight: 800;
     padding: 10px;
     margin: 30px 0;
@@ -132,4 +135,14 @@
 .edit-input input {
     line-height: 35px;
     margin-top: 10px;
+}
+
+.budget-selector {
+    height: 40px;    
+    appearance: none;
+    border: none;
+    background-color: var(--light);
+    font-size: 20px;
+    margin: 0 10px;
+    padding: 5px;
 }

@@ -25,7 +25,30 @@
 </div>
 
 <div class="remainingBudget">
-    £{{remainingBudget}}
+    <span>£{{remainingBudget}}</span>
+    <div>
+        <label for="budgetSelectorYear">Year</label>
+        <select name="budgetSelctorYear" class="budget-selector" [(ngModel)]="filterYear" (change)="LoadBudget()">
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+        </select>    
+        <label for="budgetSelectorMonth">Month</label>
+        <select name="budgetSelctorMonth" class="budget-selector" [(ngModel)]="filterMonth" (change)="LoadBudget()">
+            <option value="0">January</option>
+            <option value="1">February</option>
+            <option value="2">March</option>
+            <option value="3">April</option>
+            <option value="4">May</option>
+            <option value="5">June</option>
+            <option value="6">July</option>
+            <option value="7">August</option>
+            <option value="8">september</option>
+            <option value="9">October</option>
+            <option value="10">November</option>
+            <option value="11">December</option>          
+        </select>    
+    </div>
+    
 </div>
 
 <div class="budgetLists">
@@ -52,7 +75,7 @@
 
                     <div class="edit-input">
                         <label for="editDate">Date</label>
-                        <input name="editDate" type="date" [(ngModel)]="budget.inputBudgetDate"/>
+                        <input name="editDate" type="date" [(ngModel)]="budget.budgetDate"/>
                     </div>
                 </div>
 
@@ -100,7 +123,7 @@
 
                     <div class="edit-input">
                         <label for="editDate">Date</label>
-                        <input name="editDate" type="date" [(ngModel)]="budget.inputBudgetDate"/>
+                        <input name="editDate" type="date" [(ngModel)]="budget.budgetDate"/>
                     </div>
                 </div>
 

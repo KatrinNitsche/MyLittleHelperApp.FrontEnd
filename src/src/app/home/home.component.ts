@@ -4,6 +4,7 @@ import { ToDo } from '../models/Todo';
 import { BudgetEntry } from '../models/budgetEntry';
 import { BudgetService } from '../services/budget-service.service';
 import { ToDoService } from '../services/to-do-service.service';
+import { HelperService } from '../services/helper-service.service';
 
 @Component({
   selector: 'app-home',
@@ -14,17 +15,24 @@ export class HomeComponent {
 
   budget: BudgetEntry[];
   remainingBudget: number = 0;
+  sumIncome: number = 0;
+  sumExpenses: number = 0;
+
   todos: ToDo[];
+  quoteText: string = "no quote API yet used to load random quotes from the internet ... :-(";
   errorMessage: string = "";
 
-  constructor(private todoService: ToDoService, private budgetService: BudgetService) { }
+  showExpensesChart = false;
+
+  constructor(private todoService: ToDoService, private budgetService: BudgetService, private helperService: HelperService) { }
 
   ngOnInit(): void {
-    this.LoadTotos();
+    this.LoadToDos();
     this.LoadBudgetChart();
+    this.LoadQuote();
   }
 
-  LoadTotos() {
+  LoadToDos() {
     this.todos = [];
 
     this.todoService.getToDos(true).subscribe({
@@ -39,19 +47,29 @@ export class HomeComponent {
     this.budgetService.getBudget().subscribe({
       next: budget => {
         this.budget = budget;
-        this.CreateCart();
         var saldo = 0;
-        budget.forEach(function (bugetEntry) {
+        var expenses = 0;
+        var income = 0;
+        this.budget.forEach(function (bugetEntry) {
           saldo += bugetEntry.amount;
+          if (bugetEntry.amount < 0) {
+            expenses += bugetEntry.amount * -1;
+          } else {
+            income += bugetEntry.amount;
+          }
         });
 
         this.remainingBudget = saldo;
+        this.sumExpenses = expenses;
+        this.sumIncome = income;
+
+        this.CreateCarts();
       },
       error: err => this.errorMessage = err
     });
   }
 
-  CreateCart() {
+  CreateCarts() {
     var expenses = this.budget.filter(b => b.amount < 0).sort((a, b) => (a.amount > b.amount) ? 1 : -1);
     var expenseNames = [];
     var expenseValues = [];
@@ -68,24 +86,41 @@ export class HomeComponent {
       backgroundColour.push(color);
     })
 
-    var ctx = new Chart('myChart', {
-      type: 'pie',
+    if (this.showExpensesChart) {
+      var chartExpenses = new Chart('expensesChart', {
+        type: 'pie',
+        data: {
+          labels: expenseNames,
+          datasets: [{
+            borderColor: 'rgb(0, 0, 0)',
+            backgroundColor: backgroundColour,
+            data: expenseValues
+          }]
+        },
+        options: {
+          legend: {
+            position: 'bottom',
+            align: 'start'
+          }
+        }
+      });
+    }
+
+    var chartSummery = new Chart('sumChart', {
+      type: 'bar',
       data: {
-        labels: expenseNames,
+        labels: ['Income', 'Expenses'],
         datasets: [{
-          borderColor: 'rgb(0, 0, 0)',
-          backgroundColor: backgroundColour,
-          data: expenseValues
+          backgroundColor: ['#0B2545', '#8DA9C4'],
+          data: [this.sumIncome, this.sumExpenses]
         }]
       },
       options: {
         legend: {
-          position: 'bottom',
-          align: 'start'
+          display: false
         }
       }
-    }
-    );
+    });
   }
 
   GetRandomColour() {
@@ -98,5 +133,14 @@ export class HomeComponent {
       };
       return color;
     };
+  }
+
+  LoadQuote() {
+    this.helperService.getQuote().subscribe({
+      next: quotes => {
+
+      },
+      error: err => this.errorMessage = err
+    });
   }
 }

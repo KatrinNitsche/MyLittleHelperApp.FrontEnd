@@ -4,7 +4,8 @@
 }
 
 .todo-list,
-.budget-overview {
+.budget-overview,
+.quote {
   border: 1px solid black;
   border-radius: 5px;
   background-color: var(--light);
@@ -14,7 +15,8 @@
 }
 
 .todo-list h3,
-.budget-overview h3 {
+.budget-overview h3,
+.quote h3 {
   font-weight: bolder;
   background-color: var(--dark);
   color: var(--light);
@@ -22,6 +24,10 @@
   justify-content: center;
   align-items: center;
   height: 40px;
+}
+
+.quote p {
+  margin: 10px;
 }
 
 .todo-entry {

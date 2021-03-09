@@ -16,7 +16,7 @@ export class BudgetService {
 
   getBudget(): Observable<BudgetEntry[]> {
     return this.http.get<BudgetEntry[]>(this.baseUrl + this.endPoint).pipe(
-      tap(data => console.log('Budget: ' + JSON.stringify(data))),
+      tap(),
       catchError(err => this.handleError(err))
     );
   }

@@ -17,7 +17,7 @@ export class ToDoService {
 
   getToDos(today: boolean): Observable<ToDo[]> {   
     return this.http.get<ToDo[]>(this.baseUrl + this.endPoint + "?todaysToDos=" + today).pipe(
-      tap(data => console.log('ToDos: ' + JSON.stringify(data))),
+      tap(),
       catchError(err => this.handleError(err))
     );
   }

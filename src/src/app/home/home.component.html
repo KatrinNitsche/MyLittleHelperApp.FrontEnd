@@ -25,8 +25,14 @@
 
   <div class="budget-overview">
     <h3>Budget £{{remainingBudget}}</h3>
-    <div id="budget-chart">
-      <canvas id="myChart" width="400" height="400"></canvas>
+    <div id="budget-chart" >
+      <canvas *ngIf="showExpensesChart" id="expensesChart" width="400" height="400"></canvas>
+      <canvas id="sumChart" width="400" height="400"></canvas>
     </div>
+  </div>
+
+  <div class="quote">
+    <h3>Quote</h3>
+    <p>{{quoteText}}</p>
   </div>
 </div>

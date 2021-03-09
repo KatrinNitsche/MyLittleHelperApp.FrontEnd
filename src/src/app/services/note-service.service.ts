@@ -17,7 +17,7 @@ export class NoteService {
 
   getNotes(): Observable<Note[]> {
     return this.http.get<Note[]>(this.baseUrl + this.endPoint).pipe(
-      tap(data => console.log('Notes: ' + JSON.stringify(data))),
+      tap(),
       catchError(err => this.handleError(err))
     );
   }

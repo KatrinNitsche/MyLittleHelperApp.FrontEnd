@@ -1,0 +1,29 @@
+
+<div class="colour-settings">
+    <h3>Colours</h3>
+    <div class="settings-entry">
+        <label for="darkColour">Dark Colour</label>
+        <input name="darkColour" type="color" [(ngModel)]="darkColour" (change)="ChangeColour('dark')"/>
+    </div>
+    <div class="settings-entry">
+        <label for="middleColour">Middle Colour</label>
+        <input name="middleColour" type="color" [(ngModel)]="middleColour" (change)="ChangeColour('middle')"/>
+    </div>
+    <div class="settings-entry">
+        <label for="lightColour">Light Colour</label>
+        <input name="lightColour" type="color" [(ngModel)]="lightColour" (change)="ChangeColour('light')"/>
+    </div>
+    <input type="button" class="btn button" value="Set Default Colours" (click)="SetDefaultColours()"/>
+</div>
+
+<div class="localisation-settings">
+    <h3>Localisation</h3>
+    <div class="settings-entry">
+        <label for="currencySymbol">Currency</label>
+        <select name="currencySymbol" [(ngModel)]="currency" (change)="SetCurrency()">
+            <option value="£">Pound</option>
+            <option value="$">Dollar</option>
+            <option value="€">Euro</option>
+        </select>
+    </div>
+</div>

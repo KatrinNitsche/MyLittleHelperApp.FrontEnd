@@ -25,7 +25,7 @@
 </div>
 
 <div class="remainingBudget">
-    <span>£{{remainingBudget}}</span>
+    <span><div class="currency">£</div>{{remainingBudget}}</span>
     <div>
         <label for="budgetSelectorYear">Year</label>
         <select name="budgetSelctorYear" class="budget-selector" [(ngModel)]="filterYear" (change)="LoadBudget()">
@@ -53,12 +53,12 @@
 
 <div class="budgetLists">
     <div class="budgetList">
-        <h3 class="incomeHeadline">Income (£{{sumIncome}})</h3>
+        <h3 class="incomeHeadline">Income (<div class="currency">£</div>{{sumIncome}})</h3>
         <div class="budget-list">
             <div  *ngFor="let budget of budgetEntriesIncome; let i = index;" 
                 class="budget {{ (budget.completed ? 'done' : '') }}">            
                 <div [hidden]="budget.isEditShow" class="content">
-                    <span>£{{budget.amount}}</span>
+                    <span><div class="currency">£</div>{{budget.amount}}</span>
                     <span>{{budget.description}}</span>
                 </div>
 
@@ -100,12 +100,12 @@
     </div>
 
     <div class="budgetList">
-        <h3 class="expensesHeadline">Expenses (£{{sumExpenses}})</h3>
+        <h3 class="expensesHeadline">Expenses (<div class="currency">£</div>{{sumExpenses}})</h3>
         <div class="budget-list">
             <div  *ngFor="let budget of budgetEntriesExpenses; let i = index;" 
                 class="budget {{ (budget.completed ? 'done' : '') }}">            
                 <div [hidden]="budget.isEditShow" class="content">
-                    <span>£{{budget.amount}}</span>
+                    <span><div class="currency">£</div>{{budget.amount * -1}}</span>
                     <span>{{budget.description}}</span>
                 </div>
 

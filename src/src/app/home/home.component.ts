@@ -106,12 +106,18 @@ export class HomeComponent {
       });
     }
 
+    var rootElement = document.querySelector(':root');   
+    var rs = getComputedStyle(rootElement);  
+
+    var darkColour = rs.getPropertyValue("--dark").trim();
+    var middleColour = rs.getPropertyValue("--middle").trim();;
+
     var chartSummery = new Chart('sumChart', {
       type: 'bar',
       data: {
         labels: ['Income', 'Expenses'],
         datasets: [{
-          backgroundColor: ['#0B2545', '#8DA9C4'],
+          backgroundColor: [darkColour, middleColour],
           data: [this.sumIncome, this.sumExpenses]
         }]
       },

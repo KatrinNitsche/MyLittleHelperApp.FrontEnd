@@ -14,6 +14,7 @@ import { NotesComponent } from './notes/notes.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { ToastrModule } from 'ngx-toastr';
+import { SettingsComponent } from './settings/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
     NotesComponent,
     NavigationComponent,
     HomeComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,8 @@ import { ToastrModule } from 'ngx-toastr';
       { path: 'todo-list', component: TodoListComponent }, 
       { path: 'budget-app', component: BudgetAppComponent },
       { path: 'notes', component: NotesComponent },   
-      { path: 'quiz', component: QuizAppComponent } 
+      { path: 'quiz', component: QuizAppComponent },
+      { path: 'settings', component: SettingsComponent }
     ])
   ],
   providers: [],

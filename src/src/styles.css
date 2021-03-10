@@ -7,13 +7,15 @@
     padding: 0;
     box-sizing: border-box;
 
-    font-family: sans-serif;
+    font-family: "Times New Roman", Times, Arial, Helvetica, sans-serif;
 }
 
 :root {
     --dark: #0B2545;
     --light: #EEF4ED;
-    --middle: #8DA9C4;    
+    --middle: #8DA9C4;  
+    
+    --currency: "£";
 }
 
 .editParentNote {
@@ -54,4 +56,9 @@
 .reduceButton {
     color: var(--dark);
     background-image: url('../src/app/icons/fi-rr-angle-up.svg');
+}
+
+.currency {
+    display: inline;
+    content: var(--currency);
 }

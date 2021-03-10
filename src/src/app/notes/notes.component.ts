@@ -15,7 +15,7 @@ export class NotesComponent implements OnInit {
   parentNotes: Note[];
   errorMessage: string = "";
   
-  showInputForm: boolean = true;
+  showInputForm: boolean = false;
   inputNoteTitle: string = "";
   inputNoteText: string = "";
   inputNoteParent: number;

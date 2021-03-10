@@ -9,6 +9,24 @@
     justify-content: space-evenly;
 }
 
+.notes-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.notes-tree {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: flex-start;
+   min-width: 250px;  
+}
+
+.child-note {
+    background-color: var(--middle);
+}
+
 .note-input-title {
     display: block;
     width: 90%;
@@ -26,6 +44,25 @@
     margin-bottom: 5px;
     width: 90%;
     padding: 5px;
+}
+
+.parent-note {
+    height: 40px;    
+    appearance: none;
+    border: none;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.parent-note select {
+    height: 40px;    
+    appearance: none;
+    border: none;
+    background-color: var(--light);
+    font-size: 20px;
+    outline: none;
+    margin-left: 5px;
+    padding-left: 5px;
 }
 
 .note-submit {
@@ -56,19 +93,33 @@
     padding-right: 5px;
 }
 
-.NotesList {
+.notes-list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: 10px
 }
 
-.Note {
+.note {
     padding: 5px;
     border: 1px solid var(--dark);
     border-radius: 5px;  
     margin: 5px;  
     width: 48%;
+    background-color: var(--light);
+}
+
+.parent {
+    background-color: var(--dark);
+    color: var(--light);  
+}
+
+.tree-note {
+    padding: 5px;
+    border: 1px solid var(--dark);
+    border-radius: 5px;  
+    margin: 5px;  
+    width: 90%;
     background-color: var(--light);
 }
 
@@ -82,24 +133,18 @@
 }
 
 .delete {
-    color: var(--dark);
-    width: 100%;
+    color: var(--dark);   
     text-align: right;    
 }
 
 .buttonBar {
     display: flex;
     flex-direction: row;  
+    align-items: center;
 }
 
-.editButton {
-    color: var(--dark);
-    background-image: url('../icons/edit.svg');
-}
-
-.updateButton {
-    color: var(--dark);
-    background-image: url('../icons/check.svg');
+.buttonBar span {
+    width: 95%;
 }
 
 .editForm {

@@ -15,3 +15,43 @@
     --light: #EEF4ED;
     --middle: #8DA9C4;    
 }
+
+.editParentNote {
+    display: flex;
+    flex-direction: row;  
+}
+
+.addButton {
+    color: var(--dark);
+    background-image: url('../src/app/icons/fi-rr-plus-small.svg');
+}
+
+.editButton {
+    color: var(--dark);
+    background-image: url('../src/app/icons/fi-rr-pencil.svg');
+}
+
+.updateButton {
+    color: var(--dark);
+    background-image: url('../src/app/icons/fi-rr-check.svg');
+}
+
+.closeButton {
+    color: var(--dark);
+    background-image: url('../src/app/icons/fi-rr-cross-small.svg');
+}
+
+.deleteButton {
+    color: var(--dark);
+    background-image: url('../src/app/icons/fi-rr-trash.svg');
+}
+
+.expandButton {
+    color: var(--dark);
+    background-image: url('../src/app/icons/fi-rr-angle-down.svg');
+}
+
+.reduceButton {
+    color: var(--dark);
+    background-image: url('../src/app/icons/fi-rr-angle-up.svg');
+}

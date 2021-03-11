@@ -1,6 +1,6 @@
 
 <div class="colour-settings">
-    <h3>Colours</h3>
+    <h3><span class="fi fi-rr-brush"></span> Colours</h3>
     <div class="settings-entry">
         <label for="darkColour">Dark Colour</label>
         <input name="darkColour" type="color" [(ngModel)]="darkColour" (change)="ChangeColour('dark')"/>
@@ -17,7 +17,7 @@
 </div>
 
 <div class="localisation-settings">
-    <h3>Localisation</h3>
+    <h3><span class="fi fi-rr-globe"></span> Localisation</h3>
     <div class="settings-entry">
         <label for="currencySymbol">Currency</label>
         <select name="currencySymbol" [(ngModel)]="currency" (change)="SetCurrency()">
@@ -28,4 +28,4 @@
     </div>
 </div>
 
-<button class="btn savebutton" value="Save Settings" (click)="SaveSettings()"></button>
+<button class="btn savebutton" (click)="SaveSettings()">Save Settings</button>

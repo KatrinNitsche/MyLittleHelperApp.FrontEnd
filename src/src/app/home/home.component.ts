@@ -21,15 +21,33 @@ export class HomeComponent {
   todos: ToDo[];
   quoteText: string = "no quote API yet used to load random quotes from the internet ... :-(";
   errorMessage: string = "";
+  currency: string;
 
+  rootElement: HTMLElement;
   showExpensesChart = false;
 
-  constructor(private todoService: ToDoService, private budgetService: BudgetService, private helperService: HelperService) { }
+  constructor(private todoService: ToDoService, private budgetService: BudgetService, private helperService: HelperService, private settingsService: HelperService) { }
 
   ngOnInit(): void {
+    this.LoadSettings();
     this.LoadToDos();
     this.LoadBudgetChart();
     this.LoadQuote();
+  }
+
+  LoadSettings() {
+    this.settingsService.LoadSettings().subscribe({
+      next: settings => {     
+        console.log(settings);
+        this.rootElement = document.querySelector(':root');
+        this.rootElement.style.setProperty("--dark", settings.darkColour);
+        this.rootElement.style.setProperty("--middle", settings.middleColour);
+        this.rootElement.style.setProperty("--light", settings.lightColour);
+        this.rootElement.style.setProperty("--currency", settings.currency);
+        this.currency = settings.currency;
+      },
+      error: err => this.errorMessage = err
+    });
   }
 
   LoadToDos() {

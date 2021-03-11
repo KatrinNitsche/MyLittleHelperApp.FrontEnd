@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { Settings } from 'src/app/models/settings';
+import { HelperService } from 'src/app/services/helper-service.service';
 
 @Component({
   selector: 'app-settings',
@@ -14,10 +17,10 @@ export class SettingsComponent implements OnInit {
 
   currency: string = "£";
 
-  constructor() { }
+  constructor(private settingsService: HelperService, private toastr: ToastrService) { }
 
   ngOnInit(): void {    
-      this.GetColours();
+      this.LoadSettings();
   }
 
   SetDefaultColours() {
@@ -44,17 +47,42 @@ export class SettingsComponent implements OnInit {
         break;
     }
 
-    console.log(newSetting);
     this.rootElement.style.setProperty("--" + setting, newSetting.toString().trim());
   }
 
-  GetColours() {
-    this.rootElement = document.querySelector(':root');   
-    var rs = getComputedStyle(this.rootElement);  
+  LoadSettings() {
+    this.settingsService.LoadSettings().subscribe({
+      next: settings => {
+        this.darkColour = settings.darkColour;
+        this.middleColour = settings.middleColour;
+        this.lightColour = settings.lightColour;
+        this.currency = settings.currency;   
 
-    this.darkColour = rs.getPropertyValue("--dark").trim();
-    this.middleColour = rs.getPropertyValue("--middle").trim();;
-    this.lightColour = rs.getPropertyValue("--light").trim();;   
+        this.rootElement = document.querySelector(':root');
+        this.rootElement.style.setProperty("--dark", this.darkColour);
+        this.rootElement.style.setProperty("--middle", this.middleColour);
+        this.rootElement.style.setProperty("--light", this.lightColour);
+        this.rootElement.style.setProperty("--currency", this.currency);
+      },
+      error: err => {
+        this.toastr.error(err);
+      }
+    });
+  }
+
+  SaveSettings() {
+    var settings = new Settings();
+    settings.currency = this.currency;
+    settings.darkColour = this.darkColour;
+    settings.middleColour = this.middleColour;
+    settings.lightColour = this.lightColour;
+
+    this.settingsService.SaveSettings(settings).subscribe({
+      next: settings => this.toastr.info("Settings are saved"),
+      error: err => {
+        this.toastr.error(err);
+      }
+    });
   }
 
   SetCurrency() {

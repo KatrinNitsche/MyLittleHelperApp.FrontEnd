@@ -1,0 +1,33 @@
+<button name="toggleEditButton" class="btn" (click)="toggleEditMode()">
+    <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">
+    </svg>
+</button>
+
+<div class="week">
+    <div class="day" *ngFor="let day of week; let i = index;">
+        <h3>{{day.weekDayName}}</h3>
+        <div class="meals">
+            <div class="meal" *ngFor="let meal of day.meals">
+                <h3>{{meal.mealName}}</h3>
+                <p>{{meal.comment}}</p>
+                <span class="fi fi-rr-alarm-clock"> {{meal.hours}}:{{meal.minutes}}</span>
+                <div class="buttonBar" [hidden]="!editMode">
+                    <button class="btn">
+                        <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="comment">
+            <h3>Comment</h3>
+            <p>{{day.comment}}</p>
+            <div class="buttonBar" [hidden]="!editMode">
+                <button class="btn">
+                    <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

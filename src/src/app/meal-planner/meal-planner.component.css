@@ -1,0 +1,44 @@
+
+p, small,span {
+    text-align: center;
+    padding: 0 2px;
+}
+
+.week {
+    display: flex;
+    flex-direction: ;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--dark);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    width: 20%;
+}
+
+.day h3 {
+    text-align: center;
+    color: var(--dark);
+}
+
+.meal {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--dark);    
+    border-radius: 5px;
+    margin: 2px;
+}
+
+.meal h3 {
+    font-weight: bolder;
+    background-color: var(--dark);
+    color: var(--light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    font-size: 14px;
+}

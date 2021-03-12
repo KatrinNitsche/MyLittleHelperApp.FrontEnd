@@ -15,6 +15,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { ToastrModule } from 'ngx-toastr';
 import { SettingsComponent } from './settings/settings/settings.component';
+import { MealPlannerComponent } from './meal-planner/meal-planner.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SettingsComponent } from './settings/settings/settings.component';
     NavigationComponent,
     HomeComponent,
     SettingsComponent,
+    MealPlannerComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import { SettingsComponent } from './settings/settings/settings.component';
       { path: 'budget-app', component: BudgetAppComponent },
       { path: 'notes', component: NotesComponent },   
       { path: 'quiz', component: QuizAppComponent },
-      { path: 'settings', component: SettingsComponent }
+      { path: 'settings', component: SettingsComponent },
+      { path: 'meal-planner', component: MealPlannerComponent}
     ])
   ],
   providers: [],

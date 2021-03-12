@@ -1,37 +1,41 @@
 <header>
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" >
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">My Helpers</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"       
-      >
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+        aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
         <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }" >           
+          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/']">Dashboard</a>
-          </li>        
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" id="ToDoListButton" [routerLink]="['/todo-list']" >ToDo List</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" id="BudgetAppButton" [routerLink]="['/budget-app']" >Budget</a>
+            <a class="nav-link text-dark" id="ToDoListButton" [routerLink]="['/todo-list']"><span
+              class="fi fi-rr-list-check"></span> ToDo List</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" id="NotesAppButton" [routerLink]="['/notes']" >Notes</a>
+            <a class="nav-link text-dark" id="BudgetAppButton" [routerLink]="['/budget-app']"><span
+              class="fi fi-rr-list"></span> Budget</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" id="NotesAppButton" [routerLink]="['/notes']"><span
+              class="fi fi-rr-pencil"></span> Notes</a>
           </li>
           <!--<li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" id="QuizButton" [routerLink]="['/quiz']" >Quiz</a>
           </li>
         -->
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" id="SettingsButton" [routerLink]="['/settings']" ><span class="fi fi-rr-settings"></span> Settings</a>
+            <a class="nav-link text-dark" id="SettingsButton" [routerLink]="['/meal-planner']"><span
+                class="fi fi-rr-shopping-bag"></span> Meal Planner</a>
           </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" id="SettingsButton" [routerLink]="['/settings']"><span
+                class="fi fi-rr-settings"></span> Settings</a>
+          </li>
+
         </ul>
       </div>
     </div>

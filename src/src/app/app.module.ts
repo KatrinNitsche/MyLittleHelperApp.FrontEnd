@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { ToastrModule } from 'ngx-toastr';
 import { SettingsComponent } from './settings/settings/settings.component';
 import { MealPlannerComponent } from './meal-planner/meal-planner.component';
+import { EditDialogComponent } from './meal-planner/edit-dialog/edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { MealPlannerComponent } from './meal-planner/meal-planner.component';
     HomeComponent,
     SettingsComponent,
     MealPlannerComponent,
+    EditDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import { MealPlannerComponent } from './meal-planner/meal-planner.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatDialogModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },

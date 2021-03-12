@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { MealPlanDay } from '../models/mealPlanDay';
+import { MealPlanService } from '../services/meal-plan-service.service';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 @Component({
   selector: 'app-meal-planner',
@@ -7,171 +12,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MealPlannerComponent implements OnInit {
 
-  editMode: boolean = false;
   week: any[];
 
-  constructor() { }
+  constructor(private mealPlanSercvice: MealPlanService, private toastr: ToastrService, private editDialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.week = [];
-    this.week.push({
-      weekDayName: "Monday",
-      comment: "comment of the day...",
-      meals: [{
-        mealName: "Meal 1",
-        comment: "comment for meal 1",
-        hours: 0,
-        minutes: 20
-      },
-      {
-        mealName: "Meal 2",
-        comment: "comment for meal 2",
-        hours: 1,
-        minutes: 15
-      },
-      {
-        mealName: "Meal 3",
-        comment: "comment for meal 3",
-        hours: 0,
-        minutes: 45
-      }]
-    });
-    this.week.push({
-      weekDayName: "Tuesday",
-      comment: "comment of the day...",
-      meals: [{
-        mealName: "Meal 1",
-        comment: "comment for meal 1",
-        hours: 0,
-        minutes: 20
-      },
-      {
-        mealName: "Meal 2",
-        comment: "comment for meal 2",
-        hours: 1,
-        minutes: 15
-      },
-      {
-        mealName: "Meal 3",
-        comment: "comment for meal 3",
-        hours: 0,
-        minutes: 45
-      }]
-    });
-    this.week.push({
-      weekDayName: "Wednesday",
-      comment: "comment of the day...",
-      meals: [{
-        mealName: "Meal 1",
-        comment: "comment for meal 1",
-        hours: 0,
-        minutes: 20
-      },
-      {
-        mealName: "Meal 2",
-        comment: "comment for meal 2",
-        hours: 1,
-        minutes: 15
-      },
-      {
-        mealName: "Meal 3",
-        comment: "comment for meal 3",
-        hours: 0,
-        minutes: 45
-      }]
-    });
-    this.week.push({
-      weekDayName: "Thursday",
-      comment: "comment of the day...",
-      meals: [{
-        mealName: "Meal 1",
-        comment: "comment for meal 1",
-        hours: 0,
-        minutes: 20
-      },
-      {
-        mealName: "Meal 2",
-        comment: "comment for meal 2",
-        hours: 1,
-        minutes: 15
-      },
-      {
-        mealName: "Meal 3",
-        comment: "comment for meal 3",
-        hours: 0,
-        minutes: 45
-      }]
-    });
-    this.week.push({
-      weekDayName: "Friday",
-      comment: "comment of the day...",
-      meals: [{
-        mealName: "Meal 1",
-        comment: "comment for meal 1",
-        hours: 0,
-        minutes: 20
-      },
-      {
-        mealName: "Meal 2",
-        comment: "comment for meal 2",
-        hours: 1,
-        minutes: 15
-      },
-      {
-        mealName: "Meal 3",
-        comment: "comment for meal 3",
-        hours: 0,
-        minutes: 45
-      }]
-    });
-    this.week.push({
-      weekDayName: "Saturday",
-      comment: "comment of the day...",
-      meals: [{
-        mealName: "Meal 1",
-        comment: "comment for meal 1",
-        hours: 0,
-        minutes: 20
-      },
-      {
-        mealName: "Meal 2",
-        comment: "comment for meal 2",
-        hours: 1,
-        minutes: 15
-      },
-      {
-        mealName: "Meal 3",
-        comment: "comment for meal 3",
-        hours: 0,
-        minutes: 45
-      }]
-    });
-    this.week.push({
-      weekDayName: "Sunday",
-      comment: "comment of the day...",
-      meals: [{
-        mealName: "Meal 1",
-        comment: "comment for meal 1",
-        hours: 0,
-        minutes: 20
-      },
-      {
-        mealName: "Meal 2",
-        comment: "comment for meal 2",
-        hours: 1,
-        minutes: 15
-      },
-      {
-        mealName: "Meal 3",
-        comment: "comment for meal 3",
-        hours: 0,
-        minutes: 45
-      }]
-    });
+   this.LoadMealPlan();
   }
 
-  toggleEditMode() {
-    this.editMode = !this.editMode;
+  LoadMealPlan() {
+     this.week = [];   
+     this.mealPlanSercvice.getPlan().subscribe({
+       next: mealPlan => {
+         this.week = mealPlan;
+       },
+       error: err => {
+         this.toastr.error(err);
+       }
+     });
+  }
+
+  editMealPlanDay(mealPlanDay: MealPlanDay) {
+    const dialogConfig = new MatDialogConfig;
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = mealPlanDay;
+    
+    this.editDialog.open(EditDialogComponent, dialogConfig);
   }
 
 }

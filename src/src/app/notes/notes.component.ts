@@ -33,8 +33,6 @@ export class NotesComponent implements OnInit {
 
     this.noteService.getNotes().subscribe({
       next: notes => {
-        console.log(notes);
-
         this.parentNotes = notes.filter(n => n.parentId === null || n.parentId === n.id).sort((a, b) => (a.title > b.title) ? 1 : -1);
         var noteList = [];
         this.parentNotes.forEach(function (parentNote) {
@@ -46,7 +44,6 @@ export class NotesComponent implements OnInit {
           });
         });
 
-        console.log(noteList);
         this.allNotes = noteList;
         this.filteredNotes = noteList;
 

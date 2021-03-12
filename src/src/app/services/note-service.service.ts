@@ -12,8 +12,7 @@ export class NoteService {
   baseUrl: string = "https://localhost:44349/";
   endPoint: string = "note";
 
-  constructor(private http: HttpClient) {   
-  }
+  constructor(private http: HttpClient) {}
 
   getNotes(): Observable<Note[]> {
     return this.http.get<Note[]>(this.baseUrl + this.endPoint).pipe(
@@ -33,10 +32,8 @@ export class NoteService {
   updateNote(note: Note): Observable<Note> {
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(note);
-    console.log(note);
 
     return this.http.post<Note>(this.baseUrl + this.endPoint, body, {'headers': headers});
-
   }
 
   removeNote(id: number):Observable<Note> {

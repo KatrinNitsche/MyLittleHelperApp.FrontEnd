@@ -1,6 +1,6 @@
 export class MealPlanDay {
     id: number;
-    weekDayname: string;
+    weekDayName: string;
     comment: string;
     meals: Meal[];
 }

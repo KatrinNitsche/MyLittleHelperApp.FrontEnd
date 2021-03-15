@@ -1,0 +1,54 @@
+.edit-meal-plan {
+    width: 300px;
+}
+
+.meal {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--dark);    
+    border-radius: 5px;
+    margin: 2px;
+    padding: 5px;
+}
+
+.meal h3 {
+    font-weight: bolder;
+    background-color: var(--dark);
+    color: var(--light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    font-size: 14px;
+}
+
+.edit-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.text-input {
+    display: block;   
+    height: 40px;    
+    appearance: none;
+    border: none;
+    background-color: var(--light);
+    font-size: 16px;
+    outline: none;
+    padding-left: 5px;
+}
+
+.time-input {
+    display: block;   
+    height: 40px;    
+    width: 40px;
+    appearance: none;
+    border: none;
+    background-color: var(--light);
+    font-size: 16px;
+    outline: none;
+    padding-left: 5px;
+}

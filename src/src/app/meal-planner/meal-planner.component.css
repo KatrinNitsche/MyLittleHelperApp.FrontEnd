@@ -30,6 +30,7 @@ p, small,span {
     border: 1px solid var(--dark);    
     border-radius: 5px;
     margin: 2px;
+    height: 180px;    
 }
 
 .meal h3 {
@@ -41,4 +42,11 @@ p, small,span {
     align-items: center;
     height: 40px;
     font-size: 14px;
+}
+
+.meal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
 }

@@ -24,7 +24,6 @@ export class MealPlanService {
   updatePlan(mealPlanDay: MealPlanDay): Observable<MealPlanDay> {
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(mealPlanDay);
-
     return this.http.post<MealPlanDay>(this.baseUrl + this.endPoint, body, {'headers': headers});
   }
 

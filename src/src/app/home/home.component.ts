@@ -5,6 +5,8 @@ import { BudgetEntry } from '../models/budgetEntry';
 import { BudgetService } from '../services/budget-service.service';
 import { ToDoService } from '../services/to-do-service.service';
 import { HelperService } from '../services/helper-service.service';
+import { MealPlanDay } from '../models/mealPlanDay';
+import { MealPlanService } from '../services/meal-plan-service.service';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +21,7 @@ export class HomeComponent {
   sumExpenses: number = 0;
 
   todos: ToDo[];
+  meals: MealPlanDay[];
   quoteText: string = "no quote API yet used to load random quotes from the internet ... :-(";
   errorMessage: string = "";
   currency: string;
@@ -26,19 +29,41 @@ export class HomeComponent {
   rootElement: HTMLElement;
   showExpensesChart = false;
 
-  constructor(private todoService: ToDoService, private budgetService: BudgetService, private helperService: HelperService, private settingsService: HelperService) { }
+  constructor(private todoService: ToDoService, private budgetService: BudgetService, private mealPlanService: MealPlanService, private helperService: HelperService, private settingsService: HelperService) { }
 
   ngOnInit(): void {
     this.LoadSettings();
     this.LoadToDos();
     this.LoadBudgetChart();
     this.LoadQuote();
+    this.LoadMealPlan();
+  }
+
+  LoadMealPlan() {
+    this.mealPlanService.getPlan().subscribe({
+      next: mealPlan => {
+        var weekDayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var weekDayTodayNumber = new Date().getDay();
+        var weekDayTodayName = weekDayNames[weekDayTodayNumber];
+
+        mealPlan.forEach(function (mealPlanDay) {
+          if (mealPlanDay != undefined) {
+            console.log(mealPlanDay);
+            if (mealPlanDay.weekDayName == weekDayTodayName) {
+              this.meals.push(mealPlanDay);
+            }
+          }
+        })
+
+        console.log(this.meals);
+      },
+      error: err => this.errorMessage = err
+    })
   }
 
   LoadSettings() {
     this.settingsService.LoadSettings().subscribe({
-      next: settings => {     
-        console.log(settings);
+      next: settings => {
         this.rootElement = document.querySelector(':root');
         this.rootElement.style.setProperty("--dark", settings.darkColour);
         this.rootElement.style.setProperty("--middle", settings.middleColour);
@@ -124,8 +149,8 @@ export class HomeComponent {
       });
     }
 
-    var rootElement = document.querySelector(':root');   
-    var rs = getComputedStyle(rootElement);  
+    var rootElement = document.querySelector(':root');
+    var rs = getComputedStyle(rootElement);
 
     var darkColour = rs.getPropertyValue("--dark").trim();
     var middleColour = rs.getPropertyValue("--middle").trim();;

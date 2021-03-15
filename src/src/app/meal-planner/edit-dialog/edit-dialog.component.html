@@ -1,1 +1,32 @@
-<p>edit-dialog works!</p>
+<div class="edit-meal-plan">
+    <div class="meals">
+        <h3>Meals</h3>
+        <div class="meal" *ngFor="let meal of mealPlanDay.meals">
+            <div class="edit-input">
+                <label for="editMealName">Meal Name</label>
+                <input class="text-input" name="editMealName" type="text" [(ngModel)]="meal.mealName" />
+            </div>
+            <div class="edit-input">
+                <label for="editMealComment">Comment</label>
+                <input class="text-input" name="editMealComment" type="text" [(ngModel)]="meal.comment" />
+            </div>
+            <div class="edit-input">
+                <label><span class="fi fi-rr-alarm-clock"></span></label>
+                <input class="text-input" name="editMealDuration" type="datetime-local" [(ngModel)]="meal.duration" />
+            </div>
+        </div>
+    </div>
+    <div class="comment">
+        <h3>Comment</h3>
+        <div class="edit-input">
+            <label for="editMealComment">Comment</label>
+            <input class="text-input" name="editMealComment" type="text" [(ngModel)]="mealPlanDay.comment" />
+        </div>
+        <div class="buttonBar">
+            <button name="toggleEditButton" class="btn" (click)="saveMealPlanDay(mealPlanDay)">
+                <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>

@@ -58,9 +58,15 @@
     background-image: url('../src/app/icons/fi-rr-angle-up.svg');
 }
 
+.copyButton {
+    color: var(--dark);
+    background-image: url('../src/app/icons/fi-rr-copy.svg');
+}
+
 .currency {
     display: inline;
     content: var(--currency);
 }
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -8,12 +8,12 @@
             </div>
             <div class="edit-input">
                 <label for="editMealComment">Comment</label>
-                <input class="text-input" name="editMealComment" type="text" [(ngModel)]="meal.comment" />
+                <input class="text-input" name="editMealComment" type="text" [(ngModel)]="meal.comment" maxlength="50"/>
             </div>
             <div class="edit-input">
                 <label><span class="fi fi-rr-alarm-clock"></span></label>
                 <input class="text-input" name="editMealDuration" type="datetime-local" [(ngModel)]="meal.duration" />
-            </div>
+            </div>          
         </div>
     </div>
     <div class="comment">

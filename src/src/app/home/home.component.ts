@@ -5,7 +5,7 @@ import { BudgetEntry } from '../models/budgetEntry';
 import { BudgetService } from '../services/budget-service.service';
 import { ToDoService } from '../services/to-do-service.service';
 import { HelperService } from '../services/helper-service.service';
-import { MealPlanDay } from '../models/mealPlanDay';
+import { Meal, MealPlanDay } from '../models/mealPlanDay';
 import { MealPlanService } from '../services/meal-plan-service.service';
 
 @Component({
@@ -21,7 +21,8 @@ export class HomeComponent {
   sumExpenses: number = 0;
 
   todos: ToDo[];
-  meals: MealPlanDay[];
+  meals: Meal[];
+  mealsComment: string = "";
   quoteText: string = "no quote API yet used to load random quotes from the internet ... :-(";
   errorMessage: string = "";
   currency: string;
@@ -34,12 +35,14 @@ export class HomeComponent {
   ngOnInit(): void {
     this.LoadSettings();
     this.LoadToDos();
-    this.LoadBudgetChart();
-    this.LoadQuote();
+    this.LoadBudgetChart(); 
     this.LoadMealPlan();
   }
 
   LoadMealPlan() {
+    this.meals = [];
+    var mealList = [];
+    var comment = "";
     this.mealPlanService.getPlan().subscribe({
       next: mealPlan => {
         var weekDayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -48,14 +51,18 @@ export class HomeComponent {
 
         mealPlan.forEach(function (mealPlanDay) {
           if (mealPlanDay != undefined) {
-            console.log(mealPlanDay);
             if (mealPlanDay.weekDayName == weekDayTodayName) {
-              this.meals.push(mealPlanDay);
+              mealPlanDay.meals.forEach(function(meal)
+              {
+                 mealList.push(meal);
+              }); 
+              comment = mealPlanDay.comment;             
             }
           }
         })
 
-        console.log(this.meals);
+        this.meals = mealList;
+        this.mealsComment = comment;
       },
       error: err => this.errorMessage = err
     })

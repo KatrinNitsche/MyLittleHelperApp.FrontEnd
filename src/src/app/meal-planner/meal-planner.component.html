@@ -6,7 +6,18 @@
                 <h3>{{meal.mealName}}</h3>
                 <div class="meal-content">
                     <small>{{meal.comment}}</small>
-                    <span class="fi fi-rr-alarm-clock"> {{meal.duration | date: 'H'}}:{{meal.duration | date: 'mm'}}</span>
+                    <span class="fi fi-rr-alarm-clock"> {{meal.duration | date: 'H'}}:{{meal.duration | date:
+                        'mm'}}</span>
+                </div>
+                <div class="buttonBar">
+                    <button [hidden]="toCopyMeal !== null" name="toggleEditButton" class="btn" (click)="copyMeal(meal)" title="Copy this meal">
+                        <svg width="16" height="16" fill="currentColor" class="copyButton" viewBox="0 0 16 16">
+                        </svg>
+                    </button>
+                    <button [hidden]="toCopyMeal == null" name="toggleEditButton" class="btn" (click)="addMeal(meal, day)" title="Paste the meal here">
+                        <svg width="16" height="16" fill="currentColor" class="addButton" viewBox="0 0 16 16">
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>

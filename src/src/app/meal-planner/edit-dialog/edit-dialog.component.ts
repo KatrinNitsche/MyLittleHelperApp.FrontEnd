@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MAT_DIALOG_DATA,  MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { MealPlanDay } from 'src/app/models/mealPlanDay';
+import { Meal, MealPlanDay } from 'src/app/models/mealPlanDay';
 import { MealPlanService } from 'src/app/services/meal-plan-service.service';
 
 @Component({
@@ -24,6 +24,7 @@ export class EditDialogComponent implements OnInit {
     this.mealPlanSercvice.updatePlan(mealPlanDay).subscribe({ 
       next: data => {
         this.mealPlanDay = data;
+        this.dialogRef.close();
       },
       error: err => {
         this.toastr.error(err);

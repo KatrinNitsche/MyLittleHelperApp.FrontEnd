@@ -32,7 +32,8 @@
   margin: 10px;
 }
 
-.todo-entry {
+.todo-entry,
+.meal {
   padding: 5px;
 }
 

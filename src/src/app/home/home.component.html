@@ -25,24 +25,23 @@
 
   <div class="budget-overview">
     <h3>Budget (<div class="currency">{{currency}}</div> {{remainingBudget}})</h3>
-    <div id="budget-chart" >
+    <div id="budget-chart">
       <canvas *ngIf="showExpensesChart" id="expensesChart" width="400" height="400"></canvas>
       <canvas id="sumChart" width="400" height="400"></canvas>
     </div>
   </div>
 
-  <div class="quote">
-    <h3>Quote</h3>
-    <p>{{quoteText}}</p>
-  </div>
-
   <div class="meal-plan">
     <h3>Meal Plan for today</h3>
-   <!-- <div *ngFor="let meal in meals">
+    <div *ngFor="let meal of meals">
       <div class="meal">
-        {{meal.mealName}}
+        <b>{{meal.mealName}} <span class="fi fi-rr-alarm-clock"> {{meal.duration | date: 'H'}}:{{meal.duration | date:
+            'mm'}}</span></b>
+        <br />
+        <small>{{meal.comment}}</small>
       </div>
-     
-    </div> -->
+    </div>
+    <h3>Comment</h3>
+    <p class="meal">{{mealsComment}}</p>
   </div>
 </div>

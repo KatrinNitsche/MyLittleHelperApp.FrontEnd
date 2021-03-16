@@ -3,13 +3,14 @@ export class ToDo {
     content: string;
     completed: boolean;
     important: boolean;
-    categeoryId: number;
+    categoryId: number;
     dueDate: Date;
     repetitionType: number;
     created: Date;
     updated: Date;    
 
     isEditShow: boolean;
+    categoryColour: string;
 }
 
 export class MonthPicker {

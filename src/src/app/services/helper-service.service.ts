@@ -33,7 +33,7 @@ export class HelperService {
     );
   }
 
-  AddCategory(category: Category): Observable<Category> {
+  SaveCategory(category: Category): Observable<Category> {
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(category);
     

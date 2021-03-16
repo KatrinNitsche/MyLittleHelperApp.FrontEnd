@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Category } from '../models/category';
 import { Note } from '../models/note';
+import { HelperService } from '../services/helper-service.service';
 import { NoteService } from '../services/note-service.service';
 
 @Component({
@@ -14,22 +16,39 @@ export class NotesComponent implements OnInit {
   filteredNotes: Note[];
   parentNotes: Note[];
   errorMessage: string = "";
-  
+  categoryList: Category[];
+
   showInputForm: boolean = false;
+  showCategoryFilter: boolean = false;
   inputNoteTitle: string = "";
   inputNoteText: string = "";
   inputNoteParent: number;
-  
+  inputNoteCategory: number;
+
   searchTerm: string = "";
 
-  constructor(private noteService: NoteService, private toastr: ToastrService) { }
+  constructor(private noteService: NoteService, private helperService: HelperService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.LoadNotes();
+    this.LoadCategories();
+  }
+
+  LoadCategories() {
+    this.categoryList = [];
+    this.helperService.LoadCategories().subscribe({
+      next: categories => {
+        this.categoryList = categories;
+        this.LoadNotes();
+      },
+      error: err => {
+        this.toastr.error(err);
+      }
+    });
   }
 
   LoadNotes() {
     this.allNotes = [];
+    var allCategories = this.categoryList;
 
     this.noteService.getNotes().subscribe({
       next: notes => {
@@ -45,6 +64,14 @@ export class NotesComponent implements OnInit {
         });
 
         this.allNotes = noteList;
+
+        this.allNotes.forEach(function (note) {
+          var category = allCategories.filter(x => x.id == note.categoryId);
+          if (category.length > 0) {
+            note.categoryColour = category[0].colour;
+          }
+        });
+
         this.filteredNotes = noteList;
 
         if (this.searchTerm == "") {
@@ -70,6 +97,10 @@ export class NotesComponent implements OnInit {
     this.showInputForm = !this.showInputForm;
   }
 
+  toggleshowCategoryFilter() {
+    this.showCategoryFilter = !this.showCategoryFilter;
+  }
+
   addNote() {
 
     console.log(this.inputNoteParent);
@@ -80,10 +111,12 @@ export class NotesComponent implements OnInit {
       title: this.inputNoteTitle,
       description: this.inputNoteText,
       parentId: parentId,
+      categoryId: this.inputNoteCategory,
       created: new Date(),
       updated: new Date(),
       isEditShow: false,
-      expanded: false
+      expanded: false,
+      categoryColour: ""
     }
 
     this.noteService.addNote(newNote).subscribe({

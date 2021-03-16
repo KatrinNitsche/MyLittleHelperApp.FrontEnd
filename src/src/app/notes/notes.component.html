@@ -11,16 +11,37 @@
                 <option *ngFor="let note of parentNotes; let i = index;" [value]="note.id">{{note.title}}</option>
             </select>
         </div>
+        <div class="edit-note-input">
+            <label for="category">Category</label>
+            <select name="category" class="repeat-intervall" [(ngModel)]="inputNoteCategory">
+                <option value="0">No Category</option>
+                <option *ngFor="let category of categoryList" value="{{category.id}}">{{category.name}}
+                </option>
+            </select>
+        </div>
         <input type="submit" value="Add Note" class="note-submit" />
     </form>
-    <button class="btn toggle" (click)="toggleshowInputForm()">
-        <span [hidden]="showInputForm">Show Form </span>
-        <svg width="16" height="16" fill="currentColor" [class]="showInputForm ? 'reduceButton' : 'expandButton'" viewBox="0 0 16 16">
-        </svg>
-    </button>
+    <div class="category-filter" *ngIf="showCategoryFilter">
+        <p>cateogory filter</p>
+    </div>
+
+    <div class="button-bar">
+        <button class="btn toggle" (click)="toggleshowInputForm()">
+            <span>Show Form </span>
+            <svg width="16" height="16" fill="currentColor" [class]="showInputForm ? 'reduceButton' : 'expandButton'"
+                viewBox="0 0 16 16">
+            </svg>
+        </button>
+        <button class="btn toggle" (click)="toggleshowCategoryFilter()">
+            <span>Show Category Filter </span>
+            <svg width="16" height="16" fill="currentColor" [class]="showInputForm ? 'reduceButton' : 'expandButton'"
+                viewBox="0 0 16 16">
+            </svg>
+        </button>
+    </div>
 </div>
 
-<div class="NotesHeadline">
+<div class="NotesHeadline" *ngIf="allNotes">
     <span (click)="FilterList(-1)">Notes ({{allNotes.length}})</span>
     <div class="SearchForm">
         <span>Search: </span>
@@ -43,8 +64,8 @@
     <div class="notes-list">
         <div class="note" *ngFor="let note of filteredNotes; let i = index;">
 
-            <div [hidden]="note.isEditShow">
-                <div class="NoteTitle">{{note.title}}</div>
+            <div [hidden]="note.isEditShow" class="note-entry">
+                <h3 [ngStyle]="{'background-color': note.categoryColour}">{{note.title}}</h3>
                 <div [hidden]="note.expanded" class="NoteText" (click)="expandNote(note)">{{note.description}}</div>
                 <div [hidden]="!note.expanded" (click)="expandNote(note)">{{note.description}}</div>
             </div>
@@ -56,13 +77,21 @@
                     <label for="editParentNote">Parent Note</label>
                     <select name="parentNote" class="note-input-parent" [(ngModel)]="note.parentId">
                         <option value="">No Parent Note</option>
-                        <option *ngFor="let note of parentNotes; let i = index;" [value]="note.id">{{note.title}}</option>
+                        <option *ngFor="let note of parentNotes; let i = index;" [value]="note.id">{{note.title}}
+                        </option>
+                    </select>
+                </div>
+                <div class="edit-note-input">
+                    <label for="category">Category</label>
+                    <select name="category" class="repeat-intervall" [(ngModel)]="note.categoryId">
+                        <option value="0">No Category</option>
+                        <option *ngFor="let category of categoryList" value="{{category.id}}">{{category.name}}
+                        </option>
                     </select>
                 </div>
             </div>
 
             <div class="buttonBar">
-                <span><small>c: {{note.created | date: 'dd/MM/yyyy'}}</small><small *ngIf="note.created !== note.updated"> / u: {{note.updated | date: 'dd/MM/yyyy'}}</small></span>
                 <button [hidden]="note.isEditShow" class="btn" (click)="toggleEditDisplay(note)">
                     <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">
                     </svg>

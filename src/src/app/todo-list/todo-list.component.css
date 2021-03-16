@@ -9,11 +9,10 @@
     align-content: space-between;
     padding: 10px 15px;
     background-color: var(--light);
-    border-bottom: 1px solid var(--light);
 }
 
 .todo:nth-child(odd)  {
-    background-color: var(--middle);;
+    background-color: var(--middle);
 }
 
 .todo:last-of-type {
@@ -66,14 +65,6 @@
     font-weight: 700;
 }
 
-.editButton {
-    background-image: url('../icons/edit.svg');
-}
-
-.updateButton {
-    background-image: url('../icons/check.svg');
-}
-
 .editImportant {
     margin: 10px 0;
 }
@@ -102,6 +93,8 @@
     justify-content: stretch;
     align-items: flex-start;
 }
+
+/** Filter and sorting **/
 
 .todo-filters {
     display: flex;
@@ -143,6 +136,18 @@
     margin-bottom: 5px;
     padding-left: 5px;
 }
+
+.category-filters {
+    border-top: 1px solid var(--dark);
+    border-bottom: 1px solid var(--dark);
+    margin: 5px 0;
+}
+
+.category {
+    padding: 5px;
+}
+
+/** Edit **/
 
 .note-edit-form {
     display: flex;

@@ -23,7 +23,7 @@ export class SettingsComponent implements OnInit {
 
   constructor(private settingsService: HelperService, private toastr: ToastrService) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.LoadSettings();
     this.LoadCategories();
   }
@@ -42,7 +42,7 @@ export class SettingsComponent implements OnInit {
   }
 
   AddCategory() {
-    this.settingsService.AddCategory(this.newCategory).subscribe({
+    this.settingsService.SaveCategory(this.newCategory).subscribe({
       next: category => {
         this.toastr.info("Category '" + category.name + "' was added.");
         this.LoadCategories();
@@ -54,6 +54,20 @@ export class SettingsComponent implements OnInit {
   }
 
   toggleCatetoryEditDisplay(category: Category) {
+    console.log(category);
+    if (category != undefined && category.isEditShow) {
+
+      this.settingsService.SaveCategory(category).subscribe({
+        next: category => {
+          this.toastr.info("Category '" + category.name + "' was saved.");
+          this.LoadCategories();
+        },
+        error: err => {
+          this.toastr.error(err);
+        }
+      });
+    }
+
     category.isEditShow = !category.isEditShow;
   }
 
@@ -71,7 +85,7 @@ export class SettingsComponent implements OnInit {
     this.rootElement.style.setProperty("--light", this.lightColour);
   }
 
-  ChangeColour(setting: string) {  
+  ChangeColour(setting: string) {
     var newSetting = "";
     switch (setting) {
       case "dark":
@@ -94,7 +108,7 @@ export class SettingsComponent implements OnInit {
         this.darkColour = settings.darkColour;
         this.middleColour = settings.middleColour;
         this.lightColour = settings.lightColour;
-        this.currency = settings.currency;   
+        this.currency = settings.currency;
 
         this.rootElement = document.querySelector(':root');
         this.rootElement.style.setProperty("--dark", this.darkColour);
@@ -124,7 +138,7 @@ export class SettingsComponent implements OnInit {
   }
 
   SetCurrency() {
-    this.rootElement = document.querySelector(':root');          
+    this.rootElement = document.querySelector(':root');
     this.rootElement.style.setProperty("--currency", this.currency.trim());
   }
 }

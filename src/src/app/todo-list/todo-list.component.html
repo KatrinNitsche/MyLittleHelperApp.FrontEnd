@@ -1,19 +1,8 @@
 <div class="todos">
     <form (submit)="addToDo()" id="AddToDoForm">
-        <input 
-            type="text" 
-            name="inputToDo"
-            placeholder="Enter todo..."
-            class="todo-input"
-            [(ngModel)]="inputToDo"            
-        />
-        <input
-            type="checkbox"
-            name="inputImportant"
-            class="todo-checkbox"
-            [(ngModel)]="inputImportant"
-        />
-        <input type="submit" value="Add ToDo" class="todo-submit"/>
+        <input type="text" name="inputToDo" placeholder="Enter todo..." class="todo-input" [(ngModel)]="inputToDo" />
+        <input type="checkbox" name="inputImportant" class="todo-checkbox" [(ngModel)]="inputImportant" />
+        <input type="submit" value="Add ToDo" class="todo-submit" />
     </form>
 
     <div class="todo-content">
@@ -27,48 +16,61 @@
                     <option value="dueDate">Due Date</option>
                 </select>
             </div>
+                 <div class="category-filters">
+                <div class="categorie-list" *ngFor="let category of categoryList">
+                    <div class="filter">
+                        <label>{{category.name}}</label>
+                        <input name="categoryFilter" type="checkbox" class="todo-checkbox" [(ngModel)]="category.isFilteredBy" (change)="FilterByCategory()"/>
+                    </div>
+                </div>
+            </div>
             <form (submit)="loadToDos()">
                 <div class="filter">
                     <label for="importantFilter">Important</label>
-                    <input name="importantFilter" type="checkbox" [(ngModel)]="importantFilter" class="todo-checkbox"/>
+                    <input name="importantFilter" type="checkbox" [(ngModel)]="importantFilter" class="todo-checkbox" />
                 </div>
                 <div class="filter">
                     <label for="doneFilter">Done</label>
-                    <input name="doneFilter" type="checkbox" [(ngModel)]="doneFilter" class="todo-checkbox"/>
-                </div>  
-                <div class="filter">                  
-                    <input name="searchTermFilter" type="text" [(ngModel)]="searchTermFilter" class="filter-todo-input"/>
+                    <input name="doneFilter" type="checkbox" [(ngModel)]="doneFilter" class="todo-checkbox" />
                 </div>
-                <input type="submit" value="Search" class="todo-submit"/>
-            </form>           
+                <div class="filter">
+                    <input name="searchTermFilter" type="text" [(ngModel)]="searchTermFilter" placeholder="search ..."
+                        class="filter-todo-input" />
+                </div>
+                <input type="submit" value="Search" class="todo-submit" />
+            </form>       
         </div>
 
-        <div class="todo-list">
+        <div class="todo-list" *ngIf="todos">
             <h3>My ToDo List {{todos.length}}</h3>
-            <div  *ngFor="let todo of todos" class="todo {{ (todo.completed ? 'done' : '') }}">            
-                
+            <div *ngFor="let todo of todos" class="todo {{ (todo.completed ? 'done' : '') }}" [ngStyle]="{'border-right': '5px solid' + todo.categoryColour}">
+
                 <div class="important" *ngIf="todo.important" [hidden]="isEditShow">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
-                       <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1L1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
-                       <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-                   </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                        <path
+                            d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1L1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                        <path
+                            d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                    </svg>
                 </div>
-                    
+
                 <div [hidden]="todo.isEditShow" class="content" (click)="toggleDone(todo.id)">
                     <span>{{todo.content}}</span>
-                    <small [hidden]="!todo.dueDate"> ({{todo.dueDate | date: 'dd/MM/yyyy'}})</small>                     
+                    <small [hidden]="!todo.dueDate"> ({{todo.dueDate | date: 'dd/MM/yyyy'}})</small>
                 </div>
-               
+
                 <div class="note-edit-form" [hidden]="!todo.isEditShow">
-                    
+
                     <div class="edit-note-input">
                         <label for="editImportant">Important</label>
-                        <input name="editImportant" class="editImportant"  type="checkbox" [(ngModel)]="todo.important"/>
+                        <input name="editImportant" class="editImportant" type="checkbox"
+                            [(ngModel)]="todo.important" />
                     </div>
-                    
+
                     <div class="edit-note-input">
                         <label for="editContent">Content</label>
-                        <input name="editContent" class="editContent" type="text" [(ngModel)]="todo.content"/>
+                        <input name="editContent" class="editContent" type="text" [(ngModel)]="todo.content" />
                     </div>
                     <div class="edit-note-input">
                         <label for="repeatingSetting">Repeat every... </label>
@@ -78,28 +80,36 @@
                             <option value="2">Week</option>
                             <option value="3">Month</option>
                             <option value="4">Year</option>
-                        </select>                        
+                        </select>
                     </div>
-                    <div class="edit-note-input"                                  >
+                    <div class="edit-note-input">
+                        <label for="category">Category</label>
+                        <select name="category" class="repeat-intervall" [(ngModel)]="todo.categoryId">
+                            <option value="0">No Category</option>
+                            <option *ngFor="let category of categoryList" value="{{category.id}}">{{category.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="edit-note-input">
                         <label for="dateSetting">Date</label>
-                        <input name="dateSetting" type="datetime-local" class="editDate" [(ngModel)]="todo.dueDate"/>
+                        <input name="dateSetting" type="datetime-local" class="editDate" [(ngModel)]="todo.dueDate" />
                     </div>
                     <div>
                         <small [hidden]="!todo.created"> created: {{todo.created | date: 'dd/MM/yyyy'}}</small>
                         <small [hidden]="!todo.updated"> updated: {{todo.updated | date: 'dd/MM/yyyy'}}</small>
-                    </div>                 
+                    </div>
                 </div>
-                
+
                 <div class="buttonBar">
                     <button [hidden]="todo.isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
-                        <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">                    
+                        <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">
                         </svg>
                     </button>
                     <button [hidden]="!todo.isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
-                        <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">                    
+                        <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">
                         </svg>
                     </button>
-                    <button [hidden]="!todo.isEditShow" class="btn" (click)="toggleEditDisplay(todo)">
+                    <button [hidden]="!todo.isEditShow" class="btn" (click)="closeEdit(todo)">
                         <svg width="16" height="16" fill="currentColor" class="closeButton" viewBox="0 0 16 16">
                         </svg>
                     </button>
@@ -107,7 +117,7 @@
                         <svg width="16" height="16" fill="currentColor" class="deleteButton" viewBox="0 0 16 16">
                         </svg>
                     </button>
-                </div>                
+                </div>
             </div>
         </div>
     </div>

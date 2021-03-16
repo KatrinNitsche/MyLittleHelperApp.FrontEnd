@@ -7,4 +7,5 @@ export class Category {
     updated: Date;  
 
     isEditShow: boolean = false;
+    isFilteredBy: boolean = false;
 }

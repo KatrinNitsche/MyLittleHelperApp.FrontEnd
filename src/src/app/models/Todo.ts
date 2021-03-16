@@ -3,6 +3,7 @@ export class ToDo {
     content: string;
     completed: boolean;
     important: boolean;
+    categeoryId: number;
     dueDate: Date;
     repetitionType: number;
     created: Date;

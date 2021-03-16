@@ -1,19 +1,18 @@
-
 <div class="colour-settings">
     <h3><span class="fi fi-rr-brush"></span> Colours</h3>
     <div class="settings-entry">
         <label for="darkColour">Dark Colour</label>
-        <input name="darkColour" type="color" [(ngModel)]="darkColour" (change)="ChangeColour('dark')"/>
+        <input name="darkColour" type="color" [(ngModel)]="darkColour" (change)="ChangeColour('dark')" />
     </div>
     <div class="settings-entry">
         <label for="middleColour">Middle Colour</label>
-        <input name="middleColour" type="color" [(ngModel)]="middleColour" (change)="ChangeColour('middle')"/>
+        <input name="middleColour" type="color" [(ngModel)]="middleColour" (change)="ChangeColour('middle')" />
     </div>
     <div class="settings-entry">
         <label for="lightColour">Light Colour</label>
-        <input name="lightColour" type="color" [(ngModel)]="lightColour" (change)="ChangeColour('light')"/>
+        <input name="lightColour" type="color" [(ngModel)]="lightColour" (change)="ChangeColour('light')" />
     </div>
-    <input type="button" class="btn button" value="Set Default Colours" (click)="SetDefaultColours()"/>
+    <input type="button" class="btn button" value="Set Default Colours" (click)="SetDefaultColours()" />
 </div>
 
 <div class="localisation-settings">
@@ -26,6 +25,58 @@
             <option value="€">Euro</option>
         </select>
     </div>
+</div>
+
+<div class="categories">
+    <h3><span class="fi-rr-bookmark"></span> Categories</h3>
+    <div *ngFor="let category of categories" class="category-list">
+        <div class="category" [ngStyle]="{'background-color': category.colour}">
+            
+            <span [hidden]="category.isEditShow">{{category.name}}</span> 
+            
+            <div class="category-form" [hidden]="!category.isEditShow">
+                <div class="category-input">
+                    <label for="categoryName">Name</label>
+                    <input [(ngModel)]="category.name" type="text" maxlength="50" name="categoryName"/>
+                </div>
+                <div class="category-input">
+                    <label for="categoryColour">Colour</label>
+                    <input [(ngModel)]="category.colour" type="color" maxlength="50" name="categoryColour"/>
+                </div>             
+            </div>
+            
+            <div class="buttonBar">
+                <button [hidden]="category.isEditShow" class="btn" (click)="toggleCatetoryEditDisplay(category)">
+                    <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">
+                    </svg>
+                </button>
+                <button [hidden]="!category.isEditShow" class="btn" (click)="toggleCatetoryEditDisplay(category)">
+                    <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">
+                    </svg>
+                </button>
+                <button [hidden]="!category.isEditShow" class="btn" (click)="toggleCatetoryEditDisplay(category)">
+                    <svg width="16" height="16" fill="currentColor" class="closeButton" viewBox="0 0 16 16">
+                    </svg>
+                </button>
+                <button class="btn delete" (click)="removeCatetory(category.id)">
+                    <svg width="16" height="16" fill="currentColor" class="deleteButton" viewBox="0 0 16 16">
+                    </svg>
+                </button>
+            </div>            
+        </div>
+    </div>
+    <div class="category-form" [hidden]="!showCategoryInputForm">
+        <div class="category-input">
+            <label for="categoryName">Name</label>
+            <input [(ngModel)]="newCategory.name" type="text" maxlength="50" name="categoryName"/>
+        </div>
+        <div class="category-input">
+            <label for="categoryColour">Colour</label>
+            <input [(ngModel)]="newCategory.colour" type="color" maxlength="50" name="categoryColour"/>
+        </div>
+        <input type="button" class="btn button" value="Add" (click)="AddCategory()" />
+    </div>
+    <input type="button" class="btn" value="+" (click)="ToggleCategoryInputForm()" />
 </div>
 
 <button class="btn savebutton" (click)="SaveSettings()">Save Settings</button>

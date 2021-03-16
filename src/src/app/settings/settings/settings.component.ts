@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Category } from 'src/app/models/category';
 import { Settings } from 'src/app/models/settings';
 import { HelperService } from 'src/app/services/helper-service.service';
 
@@ -14,13 +15,50 @@ export class SettingsComponent implements OnInit {
   middleColour: string;
   lightColour: string;
   rootElement: HTMLElement;
-
   currency: string = "£";
+
+  showCategoryInputForm: boolean = false;
+  categories: Category[];
+  newCategory: Category;
 
   constructor(private settingsService: HelperService, private toastr: ToastrService) { }
 
   ngOnInit(): void {    
-      this.LoadSettings();
+    this.LoadSettings();
+    this.LoadCategories();
+  }
+
+  LoadCategories() {
+    this.newCategory = new Category();
+    this.categories = [];
+    this.settingsService.LoadCategories().subscribe({
+      next: categories => {
+        this.categories = categories;
+      },
+      error: err => {
+        this.toastr.error(err);
+      }
+    });
+  }
+
+  AddCategory() {
+    this.settingsService.AddCategory(this.newCategory).subscribe({
+      next: category => {
+        this.toastr.info("Category '" + category.name + "' was added.");
+        this.LoadCategories();
+      },
+      error: err => {
+        this.toastr.error(err);
+      }
+    });
+  }
+
+  toggleCatetoryEditDisplay(category: Category) {
+    category.isEditShow = !category.isEditShow;
+  }
+
+  ToggleCategoryInputForm() {
+    this.showCategoryInputForm = !this.showCategoryInputForm;
   }
 
   SetDefaultColours() {

@@ -1,5 +1,6 @@
 .colour-settings,
-.localisation-settings {
+.localisation-settings,
+.categories {
     display: flex;
     flex-direction: column;
     border: 1px solid var(--dark);
@@ -10,7 +11,19 @@
     margin-bottom: 10px;
 }
 
-.settings-entry {
+.categories {
+    width: 30%;   
+}
+
+.category {
+    border: 1px solid var(--dark);
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 3px;
+}
+
+.settings-entry,
+.category-input {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

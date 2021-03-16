@@ -85,7 +85,7 @@ export class HomeComponent {
   LoadToDos() {
     this.todos = [];
 
-    this.todoService.getToDos(true).subscribe({
+    this.todoService.getToDos(true, null).subscribe({
       next: todos => {
         this.todos = todos.filter(x => !x.completed);
       },

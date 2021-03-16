@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { Category } from '../models/category';
 import { Settings } from '../models/settings';
 
 @Injectable({
@@ -13,6 +14,7 @@ export class HelperService {
   baseUrl: string = "https://quotes.stormconsultancy.co.uk/random.json/";
   endPoint: string = "random.json";
   endPointSettings: string = "settings";
+  endpointCategories: string = "category";
 
   constructor(private http: HttpClient) {   
   }
@@ -22,6 +24,20 @@ export class HelperService {
       tap(),
       catchError(err => this.handleError(err))
     );
+  }
+
+  LoadCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.baseUrlSettings + this.endpointCategories).pipe(
+      tap(),
+      catchError(err => this.handleError(err))
+    );
+  }
+
+  AddCategory(category: Category): Observable<Category> {
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(category);
+    
+    return this.http.post<Category>(this.baseUrlSettings + this.endpointCategories, body, {'headers': headers});
   }
 
   LoadSettings(): Observable<Settings> {

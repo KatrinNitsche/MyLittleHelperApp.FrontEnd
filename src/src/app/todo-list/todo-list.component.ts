@@ -15,6 +15,7 @@ export class TodoListComponent implements OnInit {
   inputToDo: string = "";
   inputImportant: boolean = false; 
   inputRepetitionType: number = 0; 
+  inputCategory: number = null;
     
   importantFilter: boolean = false;
   doneFilter: boolean = false; 
@@ -30,7 +31,7 @@ export class TodoListComponent implements OnInit {
   loadToDos() {
     this.todos = [];
 
-    this.todoService.getToDos(false).subscribe({
+    this.todoService.getToDos(false, null).subscribe({
       next: todos => {
         this.todos = todos;  
         this.filterToDos(); 
@@ -106,6 +107,7 @@ export class TodoListComponent implements OnInit {
       completed: false,
       important: this.inputImportant,
       repetitionType: this.inputRepetitionType,
+      categeoryId: this.inputCategory,
       created: new Date(),
       updated: new Date(),
       dueDate: new Date(),

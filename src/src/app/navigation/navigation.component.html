@@ -6,38 +6,21 @@
         aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/']">Dashboard</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" id="ToDoListButton" [routerLink]="['/todo-list']"><span
-              class="fi fi-rr-list-check"></span> ToDo List</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" id="BudgetAppButton" [routerLink]="['/budget-app']"><span
-              class="fi fi-rr-list"></span> Budget</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" id="NotesAppButton" [routerLink]="['/notes']"><span
-              class="fi fi-rr-pencil"></span> Notes</a>
-          </li>
-          <!--<li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" id="QuizButton" [routerLink]="['/quiz']" >Quiz</a>
-          </li>
-        -->
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" id="SettingsButton" [routerLink]="['/meal-planner']"><span
-                class="fi fi-rr-shopping-bag"></span> Meal Planner</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" id="SettingsButton" [routerLink]="['/settings']"><span
-                class="fi fi-rr-settings"></span> Settings</a>
-          </li>
 
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end" >
+        <ul class="navbar-nav flex-grow" *ngFor="let entry of menu">         
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" id="SettingsButton" [routerLink]="entry.route"><span
+                [class]="entry.symbol"></span> {{entry.name}}</a>
+          </li>          
         </ul>
       </div>
+<!--
+      <nav role="main" *ngFor="let entry of menu">
+        <a class="nav-link text-dark" id="SettingsButton" [routerLink]="entry.route"><span
+          [class]="entry.symbol"></span> {{entry.name}}</a>
+      </nav>
+-->
     </div>
   </nav>
 </header>

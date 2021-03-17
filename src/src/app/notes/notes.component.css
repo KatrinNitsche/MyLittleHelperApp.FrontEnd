@@ -46,6 +46,35 @@
   padding: 5px;
 }
 
+.category-filter {
+  border: 1px solid var(--middle);
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.categorie-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.colour-sample {
+  padding: 10px;
+  margin-right: 5px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.category-filter-checkbox {
+  margin-left: 10px;
+  margin-bottom: 7px;
+}
+
 .parent-note {
   height: 40px;
   appearance: none;
@@ -98,6 +127,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   margin-top: 10px;
+  width: 80%;
 }
 
 .note {

@@ -12,8 +12,8 @@
             </select>
         </div>
         <div class="edit-note-input">
-            <label for="category">Category</label>
-            <select name="category" class="repeat-intervall" [(ngModel)]="inputNoteCategory">
+            <label for="categoryFilter">Category</label>
+            <select name="categoryFilter" class="repeat-intervall" [(ngModel)]="inputNoteCategory">
                 <option value="0">No Category</option>
                 <option *ngFor="let category of categoryList" value="{{category.id}}">{{category.name}}
                 </option>
@@ -22,7 +22,14 @@
         <input type="submit" value="Add Note" class="note-submit" />
     </form>
     <div class="category-filter" *ngIf="showCategoryFilter">
-        <p>cateogory filter</p>
+        <div class="categorie-list" *ngFor="let category of categoryList">
+            <div class="filter">
+                <div class="colour-sample" [ngStyle]="{'background-color': category.colour}"></div>
+                <label>{{category.name}}</label>
+                <input name="categoryFilter" type="checkbox" class="category-filter-checkbox" [(ngModel)]="category.isFilteredBy"
+                    (change)="FilterByCategory()" />
+            </div>
+        </div>
     </div>
 
     <div class="button-bar">

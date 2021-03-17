@@ -27,16 +27,32 @@ export class HomeComponent {
   errorMessage: string = "";
   currency: string;
 
+  greeting: string = "";
+  day: Date;
+
   rootElement: HTMLElement;
   showExpensesChart = false;
 
   constructor(private todoService: ToDoService, private budgetService: BudgetService, private mealPlanService: MealPlanService, private helperService: HelperService, private settingsService: HelperService) { }
 
   ngOnInit(): void {
+    this.SetGreetingAndDate();
     this.LoadSettings();
     this.LoadToDos();
     this.LoadBudgetChart(); 
     this.LoadMealPlan();
+  }
+
+  SetGreetingAndDate() {
+    var today = new Date();
+    var hour = today.getHours();
+    if (hour <= 10) {
+      this.greeting = "Good Morning";
+    } else {
+      this.greeting = "Hello";
+    }
+
+    this.day = today;
   }
 
   LoadMealPlan() {

@@ -21,6 +21,8 @@ export class SettingsComponent implements OnInit {
   categories: Category[];
   newCategory: Category;
 
+  navigationPosition: string = "top";
+
   constructor(private settingsService: HelperService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -100,6 +102,10 @@ export class SettingsComponent implements OnInit {
     }
 
     this.rootElement.style.setProperty("--" + setting, newSetting.toString().trim());
+  }
+
+  SetNavigationPosition() {
+    
   }
 
   LoadSettings() {

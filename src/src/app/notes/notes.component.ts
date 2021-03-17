@@ -85,6 +85,31 @@ export class NotesComponent implements OnInit {
     });
   }
 
+  FilterByCategory() {
+    var notes = [];
+    var allNotes = this.allNotes;
+    var anyFilter = false;
+
+    this.categoryList.forEach(function (category) {
+      if (category.isFilteredBy) {
+        anyFilter = true;
+        var toDosInCategory = allNotes.filter(x => x.categoryId == category.id);
+        if (category.isFilteredBy) {
+          toDosInCategory.forEach(function (toDo) {
+            toDo.categoryColour = category.colour;
+            notes.push(toDo);
+          });
+        }
+      }
+    });
+
+    if (!anyFilter) {
+      this.LoadNotes();
+    }
+
+    this.filteredNotes = notes;
+  }
+
   toggleEditDisplay(note: Note) {
     note.isEditShow = !note.isEditShow;
 

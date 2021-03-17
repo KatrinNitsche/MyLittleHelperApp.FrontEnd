@@ -1,18 +1,31 @@
+.settings-row {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.settings-column {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
 .colour-settings,
 .localisation-settings,
-.categories {
+.categories,
+.general-settings {
     display: flex;
     flex-direction: column;
     border: 1px solid var(--dark);
     background-color: var(--light);
     border-radius: 5px;
     padding: 5px;
-    width: 20%;
-    margin-bottom: 10px;
+    margin: 5px;
 }
 
 .categories {
-    width: 30%;   
+    width: 50%; 
+    margin: 5px;  
 }
 
 .category {

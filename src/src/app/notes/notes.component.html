@@ -34,14 +34,14 @@
 
     <div class="button-bar">
         <button class="btn toggle" (click)="toggleshowInputForm()">
-            <span>Show Form </span>
+            <span>{{showInputForm ? 'Hide' : "Show"}} Form </span>
             <svg width="16" height="16" fill="currentColor" [class]="showInputForm ? 'reduceButton' : 'expandButton'"
                 viewBox="0 0 16 16">
             </svg>
         </button>
         <button class="btn toggle" (click)="toggleshowCategoryFilter()">
-            <span>Show Category Filter </span>
-            <svg width="16" height="16" fill="currentColor" [class]="showInputForm ? 'reduceButton' : 'expandButton'"
+            <span>{{showCategoryFilter ? 'Hide' : 'Show'}} Category Filter </span>
+            <svg width="16" height="16" fill="currentColor" [class]="showCategoryFilter ? 'reduceButton' : 'expandButton'"
                 viewBox="0 0 16 16">
             </svg>
         </button>

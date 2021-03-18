@@ -1,8 +1,26 @@
-nav{    
-    width: 150px;
-    float: left;
-    display: inline;
-    margin: 0;
-    padding: 0;
-    margin-right: 10px;
-  }
+.menu {
+  background-color: var(--dark);
+ 
+  position: relative;
+  list-style-type: none;
+  top: 5px;
+  left: 5px;
+  width: 150px;
+}
+
+.nav-item {
+  padding: 0;
+}
+
+.nav-link {
+   color: var(--light);
+   padding: 0.5rem;
+}
+
+.menu-item-name {
+  padding-left: 10px;
+}
+
+ul {
+  margin-bottom: 0;
+}

@@ -4,4 +4,5 @@ export class Settings {
     middleColour: string;
     lightColour: string;
     currency: string;        
+    navigationPosition: string;
 }

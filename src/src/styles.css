@@ -18,6 +18,17 @@
     --currency: "£";
 }
 
+.flex-body {
+    display: flex;
+    flex-direction: row;
+}
+
+.site-container {
+    padding: 10px;
+    margin-left: 10px;
+    width: 90%;
+}
+
 .editParentNote {
     display: flex;
     flex-direction: row;  

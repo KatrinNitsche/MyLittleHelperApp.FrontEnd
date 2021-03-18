@@ -104,10 +104,6 @@ export class SettingsComponent implements OnInit {
     this.rootElement.style.setProperty("--" + setting, newSetting.toString().trim());
   }
 
-  SetNavigationPosition() {
-    
-  }
-
   LoadSettings() {
     this.settingsService.LoadSettings().subscribe({
       next: settings => {
@@ -121,6 +117,8 @@ export class SettingsComponent implements OnInit {
         this.rootElement.style.setProperty("--middle", this.middleColour);
         this.rootElement.style.setProperty("--light", this.lightColour);
         this.rootElement.style.setProperty("--currency", this.currency);
+        
+        this.navigationPosition = settings.navigationPosition;
       },
       error: err => {
         this.toastr.error(err);
@@ -134,6 +132,7 @@ export class SettingsComponent implements OnInit {
     settings.darkColour = this.darkColour;
     settings.middleColour = this.middleColour;
     settings.lightColour = this.lightColour;
+    settings.navigationPosition = this.navigationPosition;
 
     this.settingsService.SaveSettings(settings).subscribe({
       next: settings => this.toastr.info("Settings are saved"),

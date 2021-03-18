@@ -1,6 +1,6 @@
-<body>
-    <app-navigation></app-navigation>
-    <div class="container">
+<body [ngClass]="menuPositionTop ? '' : 'flex-body'">    
+    <app-navigation [menuPositionTop]="menuPositionTop" [menuPositionLeft]="menuPositionLeft"></app-navigation>
+    <div [ngClass]="menuPositionTop ? 'container' : 'site-container'">
       <router-outlet></router-outlet>
     </div>
 </body>

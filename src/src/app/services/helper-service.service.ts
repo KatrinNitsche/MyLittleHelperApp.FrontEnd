@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Category } from '../models/category';
+import { NavigationEntry } from '../models/navigationEntry';
 import { Settings } from '../models/settings';
 
 @Injectable({
@@ -16,8 +17,7 @@ export class HelperService {
   endPointSettings: string = "settings";
   endpointCategories: string = "category";
 
-  constructor(private http: HttpClient) {   
-  }
+  constructor(private http: HttpClient) { }
 
   getQuote(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl + this.endPoint).pipe(
@@ -50,7 +50,7 @@ export class HelperService {
   SaveSettings(settings: Settings): Observable<Settings> {
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(settings);
-    
+   
     return this.http.post<Settings>(this.baseUrlSettings + this.endPointSettings, body, {'headers': headers});
   }
 
@@ -66,4 +66,16 @@ export class HelperService {
     console.log(errorMessage);
     return throwError(errorMessage);
   }
+
+  LoadMenuEntries() : NavigationEntry[] {
+    var menuData = [];
+    menuData.push({ name: "Dashboard", route: "/", symbol: "" });
+    menuData.push({ name: "ToDo list", route: "/todo-list", symbol: "fi fi-rr-list-check" });
+    menuData.push({ name: "Budget", route: "/budget-app", symbol: "fi fi-rr-list" });
+    menuData.push({ name: "Notes", route: "/notes", symbol: "fi fi-rr-pencil" });
+    menuData.push({ name: "Meal Planner", route: "/meal-planner", symbol: "fi fi-rr-shopping-bag" });
+    menuData.push({ name: "Settings", route: "/settings", symbol: "fi fi-rr-settings" });
+
+    return menuData;
+  }  
 }

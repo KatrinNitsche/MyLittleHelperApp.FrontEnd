@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavigationEntry } from '../models/navigationEntry';
+import { HelperService } from '../services/helper-service.service';
 
 @Component({
   selector: 'app-navigation',
@@ -8,18 +9,13 @@ import { NavigationEntry } from '../models/navigationEntry';
 })
 export class NavigationComponent implements OnInit {
 
-  menu: NavigationEntry[];
-  constructor() { }
+  menuData: NavigationEntry[];
+  @Input() menuPositionTop: boolean;
+  @Input() menuPositionLeft: boolean;
 
-  ngOnInit(): void {
-    this.menu = [];
+  constructor(private HelperService: HelperService) { }
 
-    this.menu.push({ name: "Dashboard", route: "/", symbol: "" });
-    this.menu.push({ name: "ToDo list", route: "/todo-list", symbol: "fi fi-rr-list-check" });
-    this.menu.push({ name: "Budget", route: "/budget-app", symbol: "fi fi-rr-list" });
-    this.menu.push({ name: "Notes", route: "/notes", symbol: "fi fi-rr-pencil" });
-    this.menu.push({ name: "Meal Planner", route: "/meal-planner", symbol: "fi fi-rr-shopping-bag" });
-    this.menu.push({ name: "Settings", route: "/settings", symbol: "fi fi-rr-settings" });
+  ngOnInit(): void {  
+    this.menuData = this.HelperService.LoadMenuEntries();
   }
-
 }

@@ -1,4 +1,4 @@
-<header>
+<header *ngIf="menuPositionTop">
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">My Helpers</a>
@@ -7,20 +7,22 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end" >
-        <ul class="navbar-nav flex-grow" *ngFor="let entry of menu">         
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+        <ul class="navbar-nav flex-grow" *ngFor="let entry of menuData">
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" id="SettingsButton" [routerLink]="entry.route"><span
                 [class]="entry.symbol"></span> {{entry.name}}</a>
-          </li>          
+          </li>
         </ul>
       </div>
-<!--
-      <nav role="main" *ngFor="let entry of menu">
-        <a class="nav-link text-dark" id="SettingsButton" [routerLink]="entry.route"><span
-          [class]="entry.symbol"></span> {{entry.name}}</a>
-      </nav>
--->
     </div>
   </nav>
 </header>
+
+<div *ngIf="menuPositionLeft" class="menu">
+  <ul role="main" class="vertical-menu" *ngFor="let entry of menuData">
+    <li class="nav-item" [routerLinkActive]="['link-active']">
+      <a class="nav-link" [routerLink]="entry.route"><span [class]="entry.symbol"></span><span class="menu-item-name">{{entry.name}}</span></a>
+    </li>
+  </ul>
+</div>

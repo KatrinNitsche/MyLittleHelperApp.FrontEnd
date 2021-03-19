@@ -20,8 +20,19 @@
 </header>
 
 <div *ngIf="menuPositionLeft" class="menu">
+  <h3>My Helpers App</h3>
+  <div class="account-section">
+    <div class="avatar">
+      <div class="image">
+        <i class="fi-rr-user"></i>
+      </div>
+    </div>
+    <div class="name">Rachel Nitsche</div>
+    <div class="account-link"><a href="#">Account</a></div>
+  </div>
+
   <ul role="main" class="vertical-menu" *ngFor="let entry of menuData">
-    <li class="nav-item" [routerLinkActive]="['link-active']">
+    <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="entry.showInSideMenu">
       <a class="nav-link" [routerLink]="entry.route"><span [class]="entry.symbol"></span><span class="menu-item-name">{{entry.name}}</span></a>
     </li>
   </ul>

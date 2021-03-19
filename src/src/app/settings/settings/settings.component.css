@@ -23,8 +23,12 @@
     margin: 5px;
 }
 
+.general-settings {
+    width: 25%;
+}
+
 .categories {
-    width: 50%; 
+    width: 25%; 
     margin: 5px;  
 }
 

@@ -69,13 +69,13 @@ export class HelperService {
 
   LoadMenuEntries() : NavigationEntry[] {
     var menuData = [];
-    menuData.push({ name: "Dashboard", route: "/", symbol: "" });
-    menuData.push({ name: "ToDo list", route: "/todo-list", symbol: "fi fi-rr-list-check" });
-    menuData.push({ name: "Budget", route: "/budget-app", symbol: "fi fi-rr-list" });
-    menuData.push({ name: "Notes", route: "/notes", symbol: "fi fi-rr-pencil" });
-    menuData.push({ name: "Meal Planner", route: "/meal-planner", symbol: "fi fi-rr-shopping-bag" });
-    menuData.push({ name: "Settings", route: "/settings", symbol: "fi fi-rr-settings" });
-
+    menuData.push({ name: "Dashboard", route: "/", symbol: "", showInSideMenu: true });
+    menuData.push({ name: "ToDo list", route: "/todo-list", symbol: "fi fi-rr-list-check", showInSideMenu: true });
+    menuData.push({ name: "Budget", route: "/budget-app", symbol: "fi fi-rr-list", showInSideMenu: true });
+    menuData.push({ name: "Notes", route: "/notes", symbol: "fi fi-rr-pencil", showInSideMenu: true });
+    menuData.push({ name: "Meal Planner", route: "/meal-planner", symbol: "fi fi-rr-shopping-bag", showInSideMenu: true });
+    menuData.push({ name: "Settings", route: "/settings", symbol: "fi fi-rr-settings", showInSideMenu: true });
+    menuData.push({ name: "Account", route: "/account", symbol: "fi-rr-user", showInSideMenu: false });
     return menuData;
   }  
 }

@@ -1,4 +1,13 @@
 
+.headline {
+    width: 100%;
+    background-color: var(--dark);
+    color: var(--light);
+    padding: 10px;
+    margin: 5px 0;
+    font-size: 20px;
+}
+
 .todo-list {
     padding-top: 10px;
     width: 80%;
@@ -181,5 +190,23 @@
 @media only screen and (max-width: 768px) {
     .todo-list {
         width: 100%;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .todo-filters {
+        width: 15%;
+    }
+
+    .todo-list {
+        max-height: 700px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;        
+    }
+
+    .todo {
+        width: 50%;     
+        margin-right: 10px;  
     }
 }

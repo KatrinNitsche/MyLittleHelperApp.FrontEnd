@@ -55,8 +55,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  toggleCatetoryEditDisplay(category: Category) {
-    console.log(category);
+  toggleCatetoryEditDisplay(category: Category) {   
     if (category != undefined && category.isEditShow) {
 
       this.settingsService.SaveCategory(category).subscribe({
@@ -70,6 +69,10 @@ export class SettingsComponent implements OnInit {
       });
     }
 
+    category.isEditShow = !category.isEditShow;
+  }
+
+  closeCatetoryEditDisplay(category: Category) {
     category.isEditShow = !category.isEditShow;
   }
 
@@ -135,9 +138,12 @@ export class SettingsComponent implements OnInit {
     settings.navigationPosition = this.navigationPosition;
 
     this.settingsService.SaveSettings(settings).subscribe({
-      next: settings => this.toastr.info("Settings are saved"),
+      next: settings => {
+        this.toastr.info("Settings are saved");
+        window.location.reload();
+      },
       error: err => {
-        this.toastr.error(err);
+        this.toastr.error(err);        
       }
     });
   }

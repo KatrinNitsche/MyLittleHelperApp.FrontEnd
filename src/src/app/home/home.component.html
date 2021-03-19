@@ -1,4 +1,4 @@
-<h1>{{greeting}} - today is {{day | date: 'EEEE'}} the{{day | date: 'dd/MM/yyyy'}}</h1>
+<h1>{{greeting}} - today is {{day | date: 'EEEE'}}, {{day | date: 'dd/MM/yyyy'}}</h1>
 
 <div class="dashboard-widgets">
 
@@ -41,7 +41,9 @@
         <small>{{meal.comment}}</small>
       </div>
     </div>
-    <h3>Comment</h3>
-    <p class="meal">{{mealsComment}}</p>
+    <div *ngIf="mealsComment">
+      <h3>Comment</h3>
+      <p class="meal">{{mealsComment}}</p>
+    </div>
   </div>
 </div>

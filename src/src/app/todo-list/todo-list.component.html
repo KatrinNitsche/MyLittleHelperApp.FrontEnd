@@ -4,7 +4,8 @@
         <input type="checkbox" name="inputImportant" class="todo-checkbox" [(ngModel)]="inputImportant" />
         <input type="submit" value="Add ToDo" class="todo-submit" />
     </form>
-
+    
+    <div class="headline">My ToDo List ({{todos.length}})</div>
     <div class="todo-content">
         <div class="todo-filters">
             <div class="filter">
@@ -16,11 +17,12 @@
                     <option value="dueDate">Due Date</option>
                 </select>
             </div>
-                <div class="category-filters">
+            <div class="category-filters">
                 <div class="categorie-list" *ngFor="let category of categoryList">
                     <div class="filter">
                         <label>{{category.name}}</label>
-                        <input name="categoryFilter" type="checkbox" class="todo-checkbox" [(ngModel)]="category.isFilteredBy" (change)="FilterByCategory()"/>
+                        <input name="categoryFilter" type="checkbox" class="todo-checkbox"
+                            [(ngModel)]="category.isFilteredBy" (change)="FilterByCategory()" />
                     </div>
                 </div>
             </div>
@@ -38,12 +40,13 @@
                         class="filter-todo-input" />
                 </div>
                 <input type="submit" value="Search" class="todo-submit" />
-            </form>       
+            </form>
         </div>
-
+       
         <div class="todo-list" *ngIf="todos">
-            <h3>My ToDo List {{todos.length}}</h3>
-            <div *ngFor="let todo of todos" class="todo {{ (todo.completed ? 'done' : '') }}" [ngStyle]="{'border-right': '5px solid' + todo.categoryColour}">
+
+            <div *ngFor="let todo of todos" class="todo {{ (todo.completed ? 'done' : '') }}"
+                [ngStyle]="{'border-right': '5px solid' + todo.categoryColour}">
 
                 <div class="important" *ngIf="todo.important" [hidden]="isEditShow">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

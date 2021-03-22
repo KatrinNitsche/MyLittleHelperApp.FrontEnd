@@ -1,37 +1,51 @@
-<div >
-    <form (submit)="addBudgetEntry()" id="AddBudgetForm">
-        <input
-            type="number"
-            name="inputAmount"
-            placeholder="Amount..."
-            class="budget-input-amount"
-            [(ngModel)]="inputAmount"
-        />
-        <input 
-            type="text" 
-            name="inputbudget"
-            placeholder="Enter description..."
-            class="budget-input-description"
-            [(ngModel)]="inputDescription"            
-        /> 
-        <input 
-            type="date"
-            name="inputBudgetDate"
-            class="buget-input-date"
-            [(ngModel)]="inputBudgetDate"
-        />     
-        <input type="submit" value="Add Entry" class="budget-submit"/>
+<div>
+    <form (submit)="addBudgetEntry()" id="AddBudgetForm" [hidden]="!showInputForm">
+        <div class="input">
+            <label for="inputAmount">Amount</label>
+            <input type="number" name="inputAmount" placeholder="Amount..." class="budget-input-amount"
+                [(ngModel)]="inputAmount" />
+        </div>
+        <div class="input">
+            <label for="inputbudget">Description</label>
+            <input type="text" name="inputbudget" placeholder="Enter description..." class="budget-input-description"
+                [(ngModel)]="inputDescription" />
+        </div>
+        <div class="input">
+            <label for="inputBudgetDate">Date</label>
+            <input type="date" name="inputBudgetDate" class="buget-input-date" [(ngModel)]="inputBudgetDate" />
+        </div>
+        <div class="input">
+            <label for="repeatingSetting">Repeat every... </label>
+            <select name="repeatingSetting" class="repeat-intervall" [(ngModel)]="inputRepetitionType">
+                <option value="0">Don't Repeat</option>
+                <option value="1">Day</option>
+                <option value="2">Week</option>
+                <option value="3">Month</option>
+                <option value="4">Year</option>
+            </select>
+        </div>
+        <input type="submit" value="Add Entry" class="budget-submit" />
     </form>
+    <div class="button-bar">
+        <button class="btn toggle" (click)="toggleshowInputForm()">
+            <span>{{showInputForm ? 'Hide' : "Show"}} Form </span>
+            <svg width="16" height="16" fill="currentColor" [class]="showInputForm ? 'reduceButton' : 'expandButton'"
+                viewBox="0 0 16 16">
+            </svg>
+        </button>
+    </div>
 </div>
 
 <div class="remainingBudget">
-    <span><div class="currency">{{currency}}</div>{{remainingBudget}}</span>
+    <span>
+        <div class="currency">{{currency}}</div>{{remainingBudget}}
+    </span>
     <div>
         <label for="budgetSelectorYear">Year</label>
         <select name="budgetSelctorYear" class="budget-selector" [(ngModel)]="filterYear" (change)="LoadBudget()">
             <option value="2021">2021</option>
             <option value="2022">2022</option>
-        </select>    
+        </select>
         <label for="budgetSelectorMonth">Month</label>
         <select name="budgetSelctorMonth" class="budget-selector" [(ngModel)]="filterMonth" (change)="LoadBudget()">
             <option value="0">January</option>
@@ -45,20 +59,22 @@
             <option value="8">september</option>
             <option value="9">October</option>
             <option value="10">November</option>
-            <option value="11">December</option>          
-        </select>    
+            <option value="11">December</option>
+        </select>
     </div>
-    
+
 </div>
 
 <div class="budgetLists">
     <div class="budgetList">
         <h3 class="incomeHeadline">Income (<div class="currency">{{currency}}</div>{{sumIncome}})</h3>
         <div class="budget-list">
-            <div  *ngFor="let budget of budgetEntriesIncome; let i = index;" 
-                class="budget {{ (budget.completed ? 'done' : '') }}">            
+            <div *ngFor="let budget of budgetEntriesIncome; let i = index;"
+                class="budget {{ (budget.completed ? 'done' : '') }}">
                 <div [hidden]="budget.isEditShow" class="content">
-                    <span><div class="currency">{{currency}}</div>{{budget.amount}}</span>
+                    <span>
+                        <div class="currency">{{currency}}</div>{{budget.amount}}
+                    </span>
                     <span>{{budget.description}}</span>
                 </div>
 
@@ -75,16 +91,26 @@
 
                     <div class="edit-input">
                         <label for="editDate">Date</label>
-                        <input name="editDate" type="date" [(ngModel)]="budget.budgetDate"/>
+                        <input name="editDate" type="date" [(ngModel)]="budget.budgetDate" />
+                    </div>
+                    <div class="edit-input">
+                        <label for="editRepetition">Repeat every... </label>
+                        <select name="editRepetition" class="repeat-intervall" [(ngModel)]="budget.repetitionType">
+                            <option value="0">Don't Repeat</option>
+                            <option value="1">Day</option>
+                            <option value="2">Week</option>
+                            <option value="3">Month</option>
+                            <option value="4">Year</option>
+                        </select>
                     </div>
                 </div>
 
                 <button [hidden]="budget.isEditShow" class="btn" (click)="toggleEditDisplay(budget)">
-                    <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">                    
+                    <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">
                     </svg>
                 </button>
                 <button [hidden]="!budget.isEditShow" class="btn" (click)="toggleEditDisplay(budget)">
-                    <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">                    
+                    <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">
                     </svg>
                 </button>
                 <button [hidden]="!budget.isEditShow" class="btn" (click)="toggleEditDisplay(budget)">
@@ -102,10 +128,12 @@
     <div class="budgetList">
         <h3 class="expensesHeadline">Expenses (<div class="currency">{{currency}}</div>{{sumExpenses}})</h3>
         <div class="budget-list">
-            <div  *ngFor="let budget of budgetEntriesExpenses; let i = index;" 
-                class="budget {{ (budget.completed ? 'done' : '') }}">            
+            <div *ngFor="let budget of budgetEntriesExpenses; let i = index;"
+                class="budget {{ (budget.completed ? 'done' : '') }}">
                 <div [hidden]="budget.isEditShow" class="content">
-                    <span><div class="currency">{{currency}}</div>{{budget.amount * -1}}</span>
+                    <span>
+                        <div class="currency">{{currency}}</div>{{budget.amount * -1}}
+                    </span>
                     <span>{{budget.description}}</span>
                 </div>
 
@@ -122,16 +150,26 @@
 
                     <div class="edit-input">
                         <label for="editDate">Date</label>
-                        <input name="editDate" type="date" [(ngModel)]="budget.budgetDate"/>
+                        <input name="editDate" type="date" [(ngModel)]="budget.budgetDate" />
+                    </div>
+                    <div class="edit-input">
+                        <label for="editRepetition">Repeat every... </label>
+                        <select name="editRepetition" class="repeat-intervall" [(ngModel)]="budget.repetitionType">
+                            <option value="0">Don't Repeat</option>
+                            <option value="1">Day</option>
+                            <option value="2">Week</option>
+                            <option value="3">Month</option>
+                            <option value="4">Year</option>
+                        </select>
                     </div>
                 </div>
 
                 <button [hidden]="budget.isEditShow" class="btn" (click)="toggleEditDisplay(budget)">
-                    <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">                    
+                    <svg width="16" height="16" fill="currentColor" class="editButton" viewBox="0 0 16 16">
                     </svg>
                 </button>
                 <button [hidden]="!budget.isEditShow" class="btn" (click)="toggleEditDisplay(budget)">
-                    <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">                    
+                    <svg width="16" height="16" fill="currentColor" class="updateButton" viewBox="0 0 16 16">
                     </svg>
                 </button>
                 <button [hidden]="!budget.isEditShow" class="btn" (click)="toggleEditDisplay(budget)">

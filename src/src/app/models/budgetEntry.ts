@@ -3,6 +3,7 @@ export class BudgetEntry {
     description: string;
     amount: number;
     budgetDate: Date;
+    repetitionType: number;
     created: Date;
     updated: Date;    
 

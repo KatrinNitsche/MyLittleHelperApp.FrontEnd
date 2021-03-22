@@ -24,8 +24,10 @@ export class BudgetAppComponent implements OnInit {
   inputAmount: number = 0;
   inputDescription: string = "";
   inputBudgetDate: Date;
+  inputRepetitionType: number = 0;
   filterYear: number;
   filterMonth: string;
+  showInputForm: boolean = false;
 
   constructor(private budgetService: BudgetService, private toastr: ToastrService) { }
 
@@ -78,6 +80,10 @@ export class BudgetAppComponent implements OnInit {
     });
   }
 
+  toggleshowInputForm() {
+    this.showInputForm = !this.showInputForm;
+  }
+
   toggleEditDisplay(budgetEntry: BudgetEntry) {
     budgetEntry.isEditShow = !budgetEntry.isEditShow;
 
@@ -94,6 +100,7 @@ export class BudgetAppComponent implements OnInit {
       description: this.inputDescription,
       amount: this.inputAmount,
       budgetDate: this.inputBudgetDate,
+      repetitionType: this.inputRepetitionType,
       created: new Date(),
       updated: new Date(),
       isEditShow: false

@@ -23,7 +23,7 @@ export class MealPlannerComponent implements OnInit {
 
   LoadMealPlan() {
      this.week = [];   
-     this.mealPlanSercvice.getPlan().subscribe({
+     this.mealPlanSercvice.getPlan('false').subscribe({
        next: mealPlan => {
          this.week = mealPlan;
        },
@@ -31,6 +31,18 @@ export class MealPlannerComponent implements OnInit {
          this.toastr.error(err);
        }
      });
+  }
+
+  ResetMealPlan() {
+    this.week = [];   
+    this.mealPlanSercvice.getPlan('true').subscribe({
+      next: mealPlan => {
+        this.week = mealPlan;
+      },
+      error: err => {
+        this.toastr.error(err);
+      }
+    });
   }
 
   editMealPlanDay(mealPlanDay: MealPlanDay) {

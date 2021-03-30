@@ -2,10 +2,20 @@
     <form (submit)="addToDo()" id="AddToDoForm">
         <input type="text" name="inputToDo" placeholder="Enter todo..." class="todo-input" [(ngModel)]="inputToDo" />
         <input type="checkbox" name="inputImportant" class="todo-checkbox" [(ngModel)]="inputImportant" />
+        <div class="edit-note-input">
+            <label for="repeatingSetting">Repeat every... </label>
+            <select name="repeatingSetting" class="repeat-intervall" [(ngModel)]="inputRepetitionType">
+                <option value="0">Don't Repeat</option>
+                <option value="1">Day</option>
+                <option value="2">Week</option>
+                <option value="3">Month</option>
+                <option value="4">Year</option>
+            </select>
+        </div>
         <input type="submit" value="Add ToDo" class="todo-submit" />
     </form>
     
-    <div class="headline">My ToDo List ({{todos.length}})</div>
+    <div class="headline" *ngIf="todos">My ToDo List ({{todos.length}})</div>
     <div class="todo-content">
         <div class="todo-filters">
             <div class="filter">

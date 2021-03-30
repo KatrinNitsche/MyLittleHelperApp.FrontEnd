@@ -59,7 +59,7 @@ export class HomeComponent {
     this.meals = [];
     var mealList = [];
     var comment = "";
-    this.mealPlanService.getPlan().subscribe({
+    this.mealPlanService.getPlan('false').subscribe({
       next: mealPlan => {
         var weekDayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         var weekDayTodayNumber = new Date().getDay();
@@ -110,7 +110,7 @@ export class HomeComponent {
   }
 
   LoadBudgetChart() {
-    this.budgetService.getBudget().subscribe({
+    this.budgetService.getBudget(true).subscribe({
       next: budget => {
         this.budget = budget;
         var saldo = 0;

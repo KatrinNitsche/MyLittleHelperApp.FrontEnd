@@ -14,32 +14,40 @@ export class BudgetService {
 
   constructor(private http: HttpClient) { }
 
-  getBudget(): Observable<BudgetEntry[]> {
-    return this.http.get<BudgetEntry[]>(this.baseUrl + this.endPoint).pipe(
-      tap(),
-      catchError(err => this.handleError(err))
-    );
+  getBudget(thisMonth: boolean): Observable<BudgetEntry[]> {
+
+    if (thisMonth == true) {
+      return this.http.get<BudgetEntry[]>(this.baseUrl + this.endPoint + "?thisMonth=true").pipe(
+        tap(),
+        catchError(err => this.handleError(err))
+      );
+    } else {
+      return this.http.get<BudgetEntry[]>(this.baseUrl + this.endPoint).pipe(
+        tap(),
+        catchError(err => this.handleError(err))
+      );
+    }
   }
 
   addBudget(budgetEntry: BudgetEntry): Observable<BudgetEntry> {
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(budgetEntry);
 
-    return this.http.post<BudgetEntry>(this.baseUrl + this.endPoint, body, {'headers': headers});
+    return this.http.post<BudgetEntry>(this.baseUrl + this.endPoint, body, { 'headers': headers });
   }
 
   updateBudget(budgetEntry: BudgetEntry): Observable<BudgetEntry> {
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify(budgetEntry);
 
-    return this.http.post<BudgetEntry>(this.baseUrl + this.endPoint, body, {'headers': headers});
+    return this.http.post<BudgetEntry>(this.baseUrl + this.endPoint, body, { 'headers': headers });
 
   }
 
-  removeBudget(id: number):Observable<BudgetEntry> {
-    const headers = { 'content-type': 'application/json' }  
+  removeBudget(id: number): Observable<BudgetEntry> {
+    const headers = { 'content-type': 'application/json' }
     const body = JSON.stringify(id);
-    
+
     const options = {
       headers: headers
     };

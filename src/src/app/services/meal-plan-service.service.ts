@@ -14,8 +14,8 @@ export class MealPlanService {
 
   constructor(private http: HttpClient) {}
 
-  getPlan(): Observable<MealPlanDay[]> {
-    return this.http.get<MealPlanDay[]>(this.baseUrl + this.endPoint).pipe(
+  getPlan(reset: string): Observable<MealPlanDay[]> {
+    return this.http.get<MealPlanDay[]>(this.baseUrl + this.endPoint + "?reset=" + reset).pipe(
       tap(),
       catchError(err => this.handleError(err))
     );

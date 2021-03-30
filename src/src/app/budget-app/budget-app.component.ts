@@ -52,7 +52,7 @@ export class BudgetAppComponent implements OnInit {
     this.sumExpenses = 0;
     this.sumIncome = 0;
 
-    this.budgetService.getBudget().subscribe({
+    this.budgetService.getBudget(false).subscribe({
       next: budget => {
         this.budgetList = budget.filter(b => new Date(b.budgetDate).getFullYear() == this.filterYear && new Date(b.budgetDate).getMonth().toString() == this.filterMonth);
         this.budgetEntriesIncome = this.budgetList.filter(b => b.amount > 0).sort((a, b) => (a.amount > b.amount) ? 1 : -1);
